@@ -1,0 +1,162 @@
+---
+title: "Research Compendium"
+description: "Ongoing research and experimental results for the Timekeeper framework"
+date: "2025-03-28"
+author: "Research Team"
+categories: [Research]
+tags: [experiments, hypotheses, results]
+status: "Draft"
+version: "0.1.0"
+audience: [Researchers]
+scope: "Overview"
+featured: false
+---
+
+<div class="status-{{< meta status | lower >}}">
+<strong>Status:</strong> {{< meta status >}}
+</div>
+
+<div class="audience-container">
+<strong>Audience:</strong>
+{{#each audience}}
+<span class="audience-badge audience-{{lowercase .}}">{{.}}</span>
+{{/each}}
+</div>
+
+# Timekeeper Research Compendium
+
+This section documents the ongoing research, experiments, and findings related to the Timekeeper framework. It serves as a living repository of the scientific exploration driving the project's development.
+
+## Research Areas
+
+The research is organized around several key areas:
+
+### 1. Theoretical Foundations
+
+Investigation of the mathematical properties of hierarchical temporal partitions, timepoint operations, and the lattice structure of partitions.
+
+- [Theoretical Hypotheses](hypotheses.qmd): Formal conjectures about temporal properties
+- [Mathematical Proofs](proofs.qmd): Formal verification of key theorems
+- [Open Questions](open-questions.qmd): Unresolved theoretical challenges
+
+### 2. Performance Optimization
+
+Empirical investigation of performance characteristics and optimization opportunities.
+
+- [Performance Models](performance-models.qmd): Analytical models of temporal efficiency
+- [Benchmark Results](benchmarks.qmd): Standardized performance measurements
+- [Optimization Strategies](optimization.qmd): Approaches to improving efficiency
+
+### 3. Dynamic Adaptation
+
+Research on adaptive mechanisms for temporal granularity.
+
+- [Adaptation Algorithms](adaptation-algorithms.qmd): Methods for dynamic reconfiguration
+- [Usage Pattern Analysis](usage-patterns.qmd): Statistical analysis of temporal operations
+- [Feedback Mechanisms](feedback.qmd): Approaches to closed-loop adaptation
+
+## Experimental Framework
+
+All research follows a standardized experimental framework to ensure reproducibility and methodological rigor.
+
+### Experiment Template
+
+Each experiment is documented using a structured template:
+
+```yaml
+experiment:
+  id: "EXP-001"
+  title: "Subdivision Factor Impact on Scheduling Efficiency"
+  date: "2025-03-15"
+  researchers: ["Researcher A", "Researcher B"]
+  
+  hypothesis:
+    statement: "Increasing the subdivision factor k_i beyond 100 for fine-grained units provides diminishing returns in scheduling precision while linearly increasing computational overhead."
+    null_hypothesis: "There is no significant relationship between subdivision factor size and the precision/overhead tradeoff."
+    
+  methodology:
+    independent_variables:
+      - name: "subdivision_factor"
+        values: [10, 50, 100, 500, 1000]
+        unit: "subdivisions"
+    dependent_variables:
+      - name: "scheduling_precision"
+        measurement: "Average temporal error in task start times"
+        unit: "microsteps"
+      - name: "computation_time"
+        measurement: "CPU time required for scheduling"
+        unit: "milliseconds"
+    control_variables:
+      - name: "task_count"
+        value: 100
+      - name: "dependency_density"
+        value: 0.3
+    
+  procedure:
+    - "Generate random task sets with the specified parameters"
+    - "Schedule tasks using the AgentTemporal system with varying subdivision factors"
+    - "Measure scheduling precision and computation time"
+    - "Analyze the relationship between subdivision factor and the dependent variables"
+    
+  results:
+    summary: "TBD"
+    data_location: "data/experiments/EXP-001/"
+    
+  conclusions:
+    findings: "TBD"
+    implications: "TBD"
+    future_work: "TBD"
+```
+
+### Research Workflow
+
+The research workflow follows these stages:
+
+1. **Hypothesis Formulation**: Define clear, testable hypotheses based on theoretical understanding or empirical observations.
+2. **Experimental Design**: Create a reproducible experimental setup with well-defined variables and metrics.
+3. **Implementation**: Develop the necessary code and infrastructure to conduct the experiment.
+4. **Data Collection**: Run the experiment and collect data following the predefined methodology.
+5. **Analysis**: Apply appropriate statistical methods to analyze the results.
+6. **Interpretation**: Draw conclusions based on the analysis and update the theoretical understanding.
+7. **Publication**: Document the findings in the research compendium and potentially in external publications.
+
+## Current Research Focus
+
+The current research focus for Q2 2025 is on:
+
+1. **Optimal Subdivision Factors**: Determining the most efficient subdivision factors for different agent counts and workloads.
+2. **Adaptation Heuristics**: Developing and testing heuristics for dynamic adaptation of the temporal structure.
+3. **Multi-Agent Coordination**: Investigating coordination patterns in 2-3 agent systems using the Timekeeper framework.
+
+## Contributing to Research
+
+Researchers interested in contributing to the Timekeeper project can:
+
+1. **Explore Open Questions**: Review the list of [open questions](open-questions.qmd) to identify research gaps.
+2. **Propose Experiments**: Submit experimental proposals following the template structure.
+3. **Replicate Results**: Verify existing findings by replicating experiments.
+4. **Extend the Framework**: Develop new theoretical extensions or implementation improvements.
+
+## Research Ethics
+
+All research conducted within the Timekeeper project adheres to principles of:
+
+- **Transparency**: All methods, data, and analysis code are publicly available.
+- **Reproducibility**: Experiments are designed to be reproducible by other researchers.
+- **Intellectual Honesty**: Results are reported accurately, including negative findings.
+- **Proper Attribution**: Prior work is properly cited and acknowledged.
+
+## Publications
+
+Research findings from the Timekeeper project have been published in:
+
+1. TBD
+
+## Research Tools
+
+The following tools are used in Timekeeper research:
+
+1. **Experimental Framework**: Custom Python framework for experiment execution and data collection.
+2. **Statistical Analysis**: R and Python scripts for data analysis and visualization.
+3. **Benchmark Suite**: Standardized task sets and configurations for performance testing.
+4. **Simulation Environment**: Agent simulation environment for testing coordination patterns.

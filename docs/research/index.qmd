@@ -1,0 +1,61 @@
+---
+title: Research
+---
+
+# Timekeeper: Research
+
+This section documents the research foundations and experimental validation of the Timekeeper framework. The research is structured around formal hypotheses derived from the mathematical theory, experiments designed to test these hypotheses, and results that validate or refine our understanding.
+
+## Research Approach
+
+The Timekeeper project follows a rigorous research methodology:
+
+1. **Theory Development**: Formal mathematical theory of temporal structures
+2. **Hypothesis Formulation**: Specific, testable predictions derived from the theory
+3. **Implementation**: Code that embodies the theoretical constructs
+4. **Experimental Validation**: Systematic testing of hypotheses
+5. **Analysis & Refinement**: Iterative improvement based on experimental results
+
+## Hypotheses
+
+Our research is organized around three core hypotheses:
+
+- [Temporal Coordination Efficiency](hypotheses/coordination_efficiency.qmd): For small-scale agent systems (1-3 agents), the optimal communication interval scales inversely with agent count and logarithmically with processing complexity.
+
+- [Agent-Specific Temporal Density](hypotheses/temporal_density.qmd): Each agent's optimal temporal granularity is a function of its task characteristics and communication patterns.
+
+- [Scheduler Optimization](hypotheses/scheduler_optimization.qmd): For small-scale agent systems, centralized scheduling with hierarchical temporal partitioning achieves near-optimal task allocation with bounded computational complexity.
+
+## Experiments
+
+Our [experimental framework](experiments/index.qmd) provides controlled environments for testing our hypotheses:
+
+- **Partition Efficiency**: Testing the efficiency of different temporal partitioning strategies
+- **Morphism Accuracy**: Evaluating the accuracy of temporal morphisms between agent and human time
+- **Scheduler Performance**: Measuring the performance of the temporal scheduler under various conditions
+
+## Results
+
+The [research results](results/index.qmd) section presents our findings from experimental validation:
+
+- Empirical validation of theoretical predictions
+- Performance benchmarks and comparisons
+- Insights and observations from implementation
+
+## Research Applications
+
+The Timekeeper framework has potential applications in:
+
+- Multi-agent coordination systems
+- Time-sensitive distributed computing
+- Human-AI collaborative systems
+- Real-time scheduling for resource-constrained environments
+
+## Contributing to Research
+
+Researchers interested in contributing to the Timekeeper project can:
+
+1. **Propose New Hypotheses**: Extend the theoretical framework with new propositions
+2. **Design Experiments**: Create novel experimental setups to test existing or new hypotheses
+3. **Analyze Results**: Provide alternative interpretations or analysis of experimental data
+4. **Extend Theory**: Propose formal extensions to the mathematical foundation

@@ -1,0 +1,35 @@
+/* Custom CSS for Sphinx documentation */
+
+/* Match Quarto's styles */
+:root {
+  --primary-color: #0d6efd;
+  --link-color: #0d6efd;
+  --hover-color: #0a58ca;
+}
+
+/* Typography */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+/* Link styling */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover-color);
+  text-decoration: underline;
+}
+
+/* Code blocks */
+div.highlight {
+  border-radius: 4px;
+}
+
+/* Navigation styling */
+.sidebar-brand-text {
+  font-weight: bold;
+}

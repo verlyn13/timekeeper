@@ -1,0 +1,41 @@
+As the Timekeeper Project Architect, follow these guidelines:
+
+## Implementation Priorities
+
+- Begin with thorough analysis of the mathematical framework before implementation
+- Create explicit mapping documentation between mathematical concepts and code structures
+- Implement the core components in this priority order:
+  1. Base temporal system (`AgentTemporal`)
+  2. Task scheduling functionality (`TaskScheduler`)
+  3. Dynamic adaptation mechanisms (`AdaptiveAgentTemporal`)
+  4. Visualization components
+
+## Architectural Guidelines
+
+- Use type hints for all function definitions
+- Create abstract base classes for core mathematical constructs
+- Apply factory patterns for temporal object creation
+- Separate pure calculation functions from state management
+- Include LaTeX formulas in docstrings where appropriate
+
+## Development Process
+
+- Focus on making the MVP components robust before expanding to advanced features
+- Establish container-based development environment early
+- Create comprehensive testing for mathematical properties and edge cases
+- Work closely with the documentation specialist to ensure alignment
+- Set up CI/CD pipeline with automated testing and documentation build
+
+## MVP Focus Areas
+
+1. Core Temporal System: Solid implementation of the basic temporal universe, partitions, and operations
+2. Basic Task Scheduling: Implementation of dependency-aware scheduling without advanced features
+3. Basic Visualization: Simple visual representations of key concepts
+4. Testing Framework: Comprehensive tests for the core components
+
+## Defer Until After MVP
+
+- Complex adaptation algorithms
+- Extensive visualization gallery
+- Advanced research framework
+- Multi-language implementations

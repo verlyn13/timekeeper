@@ -1,0 +1,21 @@
+---
+title: Temporal Universe
+---
+
+# Temporal Universe
+
+:::: {.math-definition}
+::: {.math-title}
+Definition 1
+:::
+
+This is a placeholder for the temporal universe definition.
+::::
+
+## Mathematical Foundation
+
+The mathematical foundation for the temporal universe is based on the formal definition in `theory/formal/definitions.tex`.
+
+## Implementation
+
+The implementation of this concept can be found in the [API Reference](../implementation/api/index.html).

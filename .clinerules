@@ -1,0 +1,8 @@
+"Maintain consistent coding style across the project.
+Use Python type hints for all function definitions.
+Include comprehensive docstrings with mathematical concepts explained where relevant.
+Follow PEP 8 style guidelines for Python code.
+Include appropriate unit tests for all new functionality.
+Document all mathematical algorithms with LaTeX formulas in docstrings.
+Keep functions focused and small where possible.
+Use meaningful variable names that reflect mathematical concepts."

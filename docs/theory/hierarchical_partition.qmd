@@ -1,0 +1,21 @@
+---
+title: Hierarchical Partition
+---
+
+# Hierarchical Partition
+
+:::: {.math-definition}
+::: {.math-title}
+Definition 2
+:::
+
+This is a placeholder for the hierarchical partition definition.
+::::
+
+## Mathematical Foundation
+
+The mathematical foundation for the hierarchical partition is based on the formal definition in `theory/formal/definitions.tex`.
+
+## Implementation
+
+The implementation of this concept can be found in the [API Reference](../implementation/api/index.html).

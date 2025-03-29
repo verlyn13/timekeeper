@@ -1,0 +1,239 @@
+---
+title: "Getting Started with Timekeeper"
+subtitle: "A guide to installing and using the Timekeeper framework"
+format:
+  html:
+    code-fold: false
+    toc: true
+    toc-depth: 3
+    code-tools: true
+jupyter: python3
+---
+
+# Getting Started with Timekeeper
+
+This guide will help you install the Timekeeper framework and start using it in your projects. Timekeeper provides a hierarchical partition-based approach to temporal optimization in small-scale agent systems.
+
+## Installation
+
+### Prerequisites
+
+- Python 3.7 or higher
+- pip (Python package installer)
+
+### Installation Steps
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/verlyn13/timekeeper.git
+cd timekeeper
+```
+
+2. Install the package:
+
+```bash
+# Basic installation
+pip install -e .
+
+# With development dependencies
+pip install -e ".[dev]"
+
+# With documentation dependencies
+pip install -e ".[docs]"
+```
+
+3. Verify the installation:
+
+```python
+from src.python.agent_temporal import AgentTemporal
+
+# Create a temporal system
+temporal = AgentTemporal()
+print("Timekeeper installed successfully!")
+```
+
+## Basic Usage
+
+### Creating a Temporal System
+
+The core of the Timekeeper framework is the `AgentTemporal` class, which implements the hierarchical partitioning of time described in the paper:
+
+```python
+from src.python.agent_temporal import AgentTemporal
+
+# Create a temporal system with default configuration
+temporal = AgentTemporal()
+
+# Display the system configuration
+for i, unit in enumerate(temporal.units):
+    if i < len(temporal.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = temporal.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+```
+
+The default configuration includes:
+- 1 epoch = 24 cycles
+- 1 cycle = 60 steps
+- 1 step = 1000 microsteps
+- microstep (base unit)
+
+### Working with Timepoints
+
+Timepoints represent specific moments in the temporal system:
+
+```python
+# Create a timepoint
+t1 = temporal.create_timepoint(epoch=2, cycle=15, step=30, microstep=500)
+print(f"Timepoint: {t1}")
+
+# Convert to base units (absolute representation)
+base_units = temporal.to_base_units(t1)
+print(f"Base units: {base_units} microsteps")
+
+# Create another timepoint
+t2 = temporal.create_timepoint(epoch=1, cycle=20, step=45)
+
+# Compare timepoints
+comparison = temporal.compare_timepoints(t1, t2)
+if comparison < 0:
+    print("t1 is earlier than t2")
+elif comparison > 0:
+    print("t1 is later than t2")
+else:
+    print("t1 is equal to t2")
+```
+
+### Temporal Operations
+
+The framework provides operations for adding and subtracting time:
+
+```python
+# Add time
+t3 = temporal.add_time(t1, cycle=10, step=50)
+print(f"t1 + (10 cycles, 50 steps) = {t3}")
+
+# Subtract time
+t4 = temporal.subtract_time(t3, epoch=1, cycle=5)
+print(f"t3 - (1 epoch, 5 cycles) = {t4}")
+```
+
+### Converting to Human Time
+
+The framework includes morphisms between agent time and human time:
+
+```python
+# Convert to human time
+human_time = temporal.to_human_time(t1)
+print(f"Human time: {human_time}")  # e.g., {'hours': 2, 'minutes': 15, 'seconds': 30, ...}
+
+# Convert from human time
+human_dict = {"hours": 3, "minutes": 45, "seconds": 20}
+agent_time = temporal.from_human_time(human_dict)
+print(f"Agent time: {agent_time}")
+```
+
+## Task Scheduling
+
+Timekeeper includes a task scheduler that respects dependencies and resource constraints:
+
+```python
+from src.python.agent_temporal import AgentTemporal
+from src.python.task_scheduler import TaskScheduler
+
+# Create a temporal system
+temporal = AgentTemporal()
+
+# Create a scheduler
+scheduler = TaskScheduler(temporal)
+
+# Add tasks
+scheduler.add_task("T1", {"step": 100})                  # Takes 100 steps
+scheduler.add_task("T2", {"cycle": 2}, ["T1"])           # Takes 2 cycles, depends on T1
+scheduler.add_task("T3", {"epoch": 1, "step": 500}, ["T2"])  # Takes 1 epoch and 500 steps, depends on T2
+
+# Schedule the tasks
+scheduled_tasks = scheduler.schedule()
+
+# Display the schedule
+for task in scheduled_tasks:
+    print(f"Task {task['id']}:")
+    print(f"  Start: {task['start']}")
+    print(f"  End:   {task['end']}")
+    print(f"  Agent: {task['agent']}")
+```
+
+### Visualization
+
+For a visual representation of the schedule:
+
+```python
+from src.python.visualization import visualize_schedule
+
+# Visualize the schedule
+fig, ax = visualize_schedule(scheduler)
+fig.savefig("schedule.png")
+```
+
+## Dynamic Adaptation
+
+The `AdaptiveAgentTemporal` class extends the basic system with dynamic adaptability:
+
+```python
+from src.python.adaptive_agent_temporal import AdaptiveAgentTemporal
+
+# Create an adaptive temporal system with 2 agents
+adaptive = AdaptiveAgentTemporal(agent_count=2)
+
+# Adjust a subdivision factor
+adaptive.adjust_subdivision("cycle", 30)  # Change cycle subdivision from 60 to 30
+
+# Add a new time unit
+adaptive.add_time_unit("megacycle", 4, after_unit="epoch")  # 1 epoch = 4 megacycles
+
+# Optimize for a different number of agents
+adaptive.optimize_for_agent_count(3)  # Adjust for 3 agents
+```
+
+The adaptive system automatically tracks operations and can adjust its structure based on usage patterns:
+
+```python
+# Set a relatively low threshold for demonstration
+adaptive.adaptation_threshold = 100
+
+# Perform operations
+for _ in range(50):
+    adaptive.add_time(t1, cycle=5, step=25)
+    adaptive.compare_timepoints(t1, t2)
+    
+# The system may have adjusted its parameters based on the operation patterns
+```
+
+## Next Steps
+
+Now that you're familiar with the basics of Timekeeper, you can:
+
+1. Explore the [Interactive Demo](interactive-demo.html) to see more examples.
+2. Learn about the [Math-to-Code Mapping](math-to-code.html) to understand how the mathematical constructs are implemented.
+3. Check out the [API Documentation](../api/index.html) for detailed reference.
+4. Contribute to the project by submitting issues or pull requests on [GitHub](https://github.com/verlyn13/timekeeper).
+
+## Troubleshooting
+
+### Common Issues
+
+- **ImportError**: Ensure that you've installed the package with `pip install -e .` and that your Python environment is properly set up.
+- **ValueError: Unknown unit**: Check that you're using valid unit names when creating timepoints or manipulating time.
+- **Subdivision errors**: When adjusting subdivision factors, make sure you're not trying to adjust the base unit.
+
+### Getting Help
+
+If you encounter issues or have questions, you can:
+
+- Submit an issue on [GitHub](https://github.com/verlyn13/timekeeper/issues)
+- Reach out to the maintainers
+
+Happy time-keeping!

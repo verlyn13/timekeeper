@@ -1,0 +1,195 @@
+project:
+  type: website
+  output-dir: _build/site
+  resources:
+    - "assets/"
+
+website:
+  title: "Timekeeper"
+  description: "A Mathematical Framework for Temporal Dynamics in Agent Systems"
+  repo-url: https://github.com/verlyn13/timekeeper
+  repo-actions: [edit, issue]
+  open-graph: true
+  site-url: https://verlyn13.github.io/timekeeper/
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Theory"
+        menu:
+          - text: "Overview"
+            file: docs/theory/index.qmd
+          - text: "Temporal Universe"
+            file: docs/theory/temporal_universe.qmd
+          - text: "Hierarchical Partition"
+            file: docs/theory/hierarchical_partition.qmd
+          - text: "Timepoint Operations"
+            file: docs/theory/timepoint_operations.qmd
+          - text: "Temporal Morphisms"
+            file: docs/theory/morphisms.qmd
+          - text: "Lattice Structure"
+            file: docs/theory/lattice_structure.qmd
+      - text: "Implementation"
+        menu:
+          - text: "Overview"
+            file: docs/implementation/index.qmd
+          - text: "Agent Temporal"
+            file: docs/implementation/agent_temporal.qmd
+          - text: "Task Scheduler"
+            file: docs/implementation/task_scheduler.qmd
+          - text: "Adaptive System"
+            file: docs/implementation/adaptive_system.qmd
+          - text: "API Reference"
+            href: docs/implementation/api/index.html
+      - text: "Research"
+        menu:
+          - text: "Overview"
+            file: docs/research/index.qmd
+          - text: "Hypotheses"
+            file: docs/research/hypotheses/index.qmd
+          - text: "Experiments"
+            file: docs/research/experiments/index.qmd
+          - text: "Results"
+            file: docs/research/results/index.qmd
+      - text: "Examples"
+        menu:
+          - text: "Interactive Demo"
+            file: docs/examples/interactive-demo.qmd
+          - text: "Use Cases"
+            file: docs/examples/use-cases.qmd
+          - text: "Visualization Gallery"
+            file: docs/examples/visualization-gallery.qmd
+    right:
+      - icon: github
+        href: https://github.com/verlyn13/timekeeper
+  
+  sidebar:
+    - title: "Theory"
+      style: docked
+      contents:
+        - docs/theory/index.qmd
+        - docs/theory/temporal_universe.qmd
+        - docs/theory/hierarchical_partition.qmd
+        - docs/theory/timepoint_operations.qmd
+        - docs/theory/morphisms.qmd
+        - docs/theory/lattice_structure.qmd
+    
+    - title: "Implementation"
+      contents:
+        - docs/implementation/index.qmd
+        - docs/implementation/agent_temporal.qmd
+        - docs/implementation/task_scheduler.qmd
+        - docs/implementation/adaptive_system.qmd
+        - section: "API Reference"
+          contents:
+            - href: docs/implementation/api/index.html
+            - href: docs/implementation/api/modules/temporal.html
+            - href: docs/implementation/api/modules/morphisms.html
+            - href: docs/implementation/api/modules/scheduler.html
+            - href: docs/implementation/api/modules/adaptive.html
+    
+    - title: "Research"
+      contents:
+        - docs/research/index.qmd
+        - section: "Hypotheses"
+          contents:
+            - docs/research/hypotheses/index.qmd
+            - docs/research/hypotheses/coordination_efficiency.qmd
+            - docs/research/hypotheses/temporal_density.qmd
+            - docs/research/hypotheses/scheduler_optimization.qmd
+        - section: "Experiments"
+          contents:
+            - docs/research/experiments/index.qmd
+        - section: "Results"
+          contents:
+            - docs/research/results/index.qmd
+    
+    - title: "Examples"
+      contents:
+        - docs/examples/interactive-demo.qmd
+        - docs/examples/use-cases.qmd
+        - docs/examples/visualization-gallery.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: assets/css/styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    highlight-style: a11y
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="docs/implementation/api/_static/custom.css">
+        <style>
+        /* Status indicator styles */
+        .status-draft {
+          border-left: 5px solid orange;
+          padding-left: 15px;
+          background-color: #fff3e0;
+        }
+        .status-experimental {
+          border-left: 5px solid blue;
+          padding-left: 15px;
+          background-color: #e3f2fd;
+        }
+        .status-stable {
+          border-left: 5px solid green;
+          padding-left: 15px;
+          background-color: #e8f5e9;
+        }
+        .status-deprecated {
+          border-left: 5px solid red;
+          padding-left: 15px;
+          background-color: #ffebee;
+          text-decoration: line-through;
+        }
+        
+        /* Audience indicators */
+        .audience-badge {
+          display: inline-block;
+          padding: 3px 8px;
+          border-radius: 3px;
+          margin-right: 5px;
+          font-size: 0.8em;
+          font-weight: bold;
+        }
+        .audience-researchers {
+          background-color: #e3f2fd;
+          color: #0d47a1;
+        }
+        .audience-developers {
+          background-color: #e8f5e9;
+          color: #1b5e20;
+        }
+        
+        /* Theory Reference Styling */
+        .theory-reference {
+          background-color: rgba(3, 169, 244, 0.1);
+          border-left: 3px solid #03a9f4;
+          padding: 1rem;
+          margin: 1.5rem 0;
+          border-radius: 4px;
+        }
+        
+        /* Mathematical Definition Styling */
+        .math-definition {
+          background-color: rgba(21, 101, 192, 0.1);
+          border-left: 3px solid #1565c0;
+          padding: 1rem;
+          margin: 1.5rem 0;
+          border-radius: 4px;
+        }
+        </style>
+
+execute:
+  echo: true
+  warning: true
+  message: true
+  freeze: auto

@@ -1,0 +1,21 @@
+---
+title: Timepoint Operations
+---
+
+# Timepoint Operations
+
+:::: {.math-definition}
+::: {.math-title}
+Definitions 6-8
+:::
+
+This is a placeholder for the timepoint operations definition.
+::::
+
+## Mathematical Foundation
+
+The mathematical foundation for the timepoint operations is based on the formal definition in `theory/formal/definitions.tex`.
+
+## Implementation
+
+The implementation of this concept can be found in the [API Reference](../implementation/api/index.html).

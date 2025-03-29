@@ -1,0 +1,98 @@
+---
+title: "Timekeeper Documentation"
+subtitle: "Comprehensive documentation for the Timekeeper framework"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    page-layout: full
+    code-tools: true
+---
+
+# Timekeeper Documentation
+
+Welcome to the Timekeeper documentation. This comprehensive guide provides all the information you need to understand, install, and use the Timekeeper framework in your projects.
+
+## Overview
+
+Timekeeper is a hierarchical partition-based approach to temporal optimization in small-scale agent systems. It provides a formal mathematical framework for representing, manipulating, and reasoning about time in agent-based systems.
+
+The framework is based on rigorous mathematical foundations, including:
+
+- Temporal universes and hierarchical partitioning
+- Timepoint representation and operations
+- Human-agent temporal morphisms
+- Dynamic adaptability and optimization
+- Task scheduling with dependency constraints
+
+## Quick Start
+
+If you're new to Timekeeper, start with the [Getting Started Guide](getting-started.html) for installation instructions and basic usage examples.
+
+## Documentation Sections
+
+Choose a section to explore:
+
+::: {.grid}
+
+::: {.g-col-6}
+### Core Concepts
+
+- [Mathematical Foundations](math-foundations.html)
+- [Math-to-Code Mapping](math-to-code.html)
+- [Temporal Hierarchies](temporal-hierarchies.html)
+- [Timepoint Operations](timepoint-operations.html)
+- [Human-Agent Morphisms](human-agent-morphisms.html)
+:::
+
+::: {.g-col-6}
+### Advanced Topics
+
+- [Dynamic Adaptation](dynamic-adaptation.html)
+- [Task Scheduling](task-scheduling.html)
+- [Performance Optimization](performance-optimization.html)
+- [Integration Patterns](integration-patterns.html)
+:::
+
+:::
+
+## Interactive Examples
+
+Try Timekeeper in action:
+
+- [Interactive Demo](interactive-demo.html) - Explore the framework's capabilities
+- [Visualization Gallery](visualization-gallery.html) - See various visualization options
+- [Code Examples](code-examples.html) - Copy-pasteable examples for common tasks
+
+## API Reference
+
+For detailed reference, see the [API Documentation](../api/index.html):
+
+- [AgentTemporal](../api/agent_temporal.html) - Core temporal system
+- [TaskScheduler](../api/task_scheduler.html) - Task scheduling
+- [AdaptiveAgentTemporal](../api/adaptive_agent_temporal.html) - Dynamic adaptation
+- [Visualization](../api/visualization.html) - Visualization tools
+
+## Development
+
+Information for developers and contributors:
+
+- [Contributing Guide](contributing.html)
+- [Development Setup](development-setup.html)
+- [Testing](testing.html)
+- [Project Roadmap](roadmap.html)
+
+## Resources
+
+Additional resources:
+
+- [Paper Preprint](https://arxiv.org/abs/XXXX.XXXXX) - Academic paper describing the framework
+- [GitHub Repository](https://github.com/verlyn13/timekeeper) - Source code and issue tracker
+- [Release Notes](release-notes.html) - Latest updates and changes
+
+## Contact
+
+Have questions or feedback? Reach out:
+
+- [GitHub Issues](https://github.com/verlyn13/timekeeper/issues) - Report bugs or request features
+- [Discussions](https://github.com/verlyn13/timekeeper/discussions) - Community discussions

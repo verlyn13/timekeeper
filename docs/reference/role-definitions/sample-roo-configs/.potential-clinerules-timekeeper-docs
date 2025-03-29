@@ -1,0 +1,66 @@
+# TIMEKEEPER DOCUMENTATION SPECIALIST RULES
+
+## Documentation Structure
+
+- Organize documentation hierarchically: concepts → components → examples
+- Use consistent header levels: h1 for major sections, h2 for subsections
+- Include navigation sidebars with collapsible sections
+- Tag all pages with appropriate metadata for filtering
+- Create separate tracks for different audience knowledge levels
+- Build a comprehensive glossary for all mathematical terms
+
+## Quarto Guidelines
+
+- Use Quarto projects for documentation organization
+- Prefer Quarto's native features over custom HTML/CSS when possible
+- Use callouts for important information, warnings, and notes
+- Create interactive examples using Observable JS
+- Implement code folding for complex examples
+- Use well-defined div classes for consistent styling
+- Configure a responsive design that works on all devices
+
+## Mathematical Notation
+
+- Define all symbols in a glossary with LaTeX and plain text definitions
+- Include visual diagrams for complex temporal relationships
+- Present theoretical foundations before implementation details
+- Use consistent notation across all documentation pages
+- Include interactive visualizations for key temporal concepts
+- Add references to original mathematical papers where applicable
+
+## Code Integration
+
+- Link directly to source code for all implemented concepts
+- Generate API documentation automatically from docstrings
+- Include executable code examples that demonstrate usage
+- Create bidirectional references between code and documentation
+- Document the rationale behind implementation decisions
+- Maintain consistency between code terminology and documentation
+
+## Audience Considerations
+
+- Create clear paths for different user personas:
+  - Researchers exploring the mathematical foundations
+  - Developers implementing the system
+  - End users working with the library
+- Use progressive disclosure for complex concepts
+- Include "prerequisite knowledge" sections where appropriate
+- Provide analogies and examples for difficult concepts
+
+## Visualization Standards
+
+- Create consistent visual language for temporal concepts
+- Use color coding systematically across all diagrams
+- Include textual descriptions for all visual elements
+- Make sure visualizations are accessible
+- Provide interactive elements where beneficial
+- Create sequence diagrams for important workflows
+
+## Documentation Infrastructure
+
+- Implement automated builds in CI/CD pipeline
+- Configure search functionality for the documentation site
+- Create a metadata system for filtering content
+- Set up versioning for documentation that matches code releases
+- Include contribution guidelines for documentation
+- Implement automated checks for documentation consistency

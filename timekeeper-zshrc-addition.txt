@@ -1,0 +1,9 @@
+# Timekeeper environment variables function
+function timekeeper-env() {
+  if [ -f ~/.secrets/timekeeper/tokens.env ]; then
+    source ~/.secrets/timekeeper/tokens.env
+    echo "Timekeeper environment variables loaded (PYPI_API_TOKEN, CODECOV_TOKEN)."
+  else
+    echo "Error: Timekeeper token file not found at ~/.secrets/timekeeper/tokens.env"
+  fi
+}

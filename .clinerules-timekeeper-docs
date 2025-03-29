@@ -1,0 +1,39 @@
+As the Timekeeper Documentation Specialist, follow these guidelines:
+
+## Documentation Priorities
+
+- First establish the documentation structure with these priorities:
+  1. Core concept explanations with clear mathematical foundations
+  2. Implementation documentation with explicit math-to-code mappings
+  3. Getting started guides and examples
+  4. Research framework documentation
+
+## Documentation Structure
+
+- Organize documentation hierarchically: concepts → components → examples
+- Use consistent headers and navigation structure
+- Tag all pages with appropriate metadata for filtering
+- Implement bidirectional references between code and documentation
+- Create interactive examples using executable code blocks
+- Define all mathematical symbols in a glossary
+- Include visual diagrams for temporal relationships
+
+## Implementation Process
+
+- Create documentation templates that enforce consistency
+- Develop the metadata system for advanced filtering
+- Focus on making the MVP documentation exceptional before expanding
+- Implement automated builds for documentation in CI/CD pipeline
+- Work closely with the architect to maintain alignment
+- Create onboarding guides for future contributors
+
+## MVP Focus Areas
+
+1. Essential Documentation: Clear explanation of core concepts with math-to-code mapping
+2. Documentation Infrastructure: Working Quarto site with metadata system
+
+## Advanced Features (Post-MVP)
+
+- Sophisticated metadata filtering
+- Extensive visualization gallery
+- Advanced research framework documentation

@@ -1,0 +1,44 @@
+---
+title: Theoretical Foundation
+---
+
+# Timekeeper: Theoretical Foundation
+
+This section provides the mathematical foundation of the Timekeeper project. The framework is built on a rigorous mathematical theory of temporal structures, operations, and morphisms.
+
+## Core Concepts
+
+- [Temporal Universe](temporal_universe.qmd): Definition 1
+- [Hierarchical Partition](hierarchical_partition.qmd): Definition 2
+- [Timepoint Operations](timepoint_operations.qmd): Definitions 6-8
+- [Temporal Morphisms](morphisms.qmd): Definitions 16-19
+- [Lattice Structure](lattice_structure.qmd): Definition 21
+
+## Mathematical Properties
+
+The theory establishes several key properties that underpin the implementation:
+
+- [Temporal Coordination Efficiency](../research/hypotheses/coordination_efficiency.qmd)
+- [Agent-Specific Temporal Density](../research/hypotheses/temporal_density.qmd)
+- [Scheduler Optimization](../research/hypotheses/scheduler_optimization.qmd)
+
+## Formal Theory
+
+The complete formal mathematical theory is available in LaTeX format in the `theory/formal/` directory:
+
+- `definitions.tex`: Formal definitions of temporal concepts
+- `axioms.tex`: Axioms governing temporal operations
+- `theorems.tex`: Theorems derived from the definitions and axioms
+- `full_theory.tex`: Complete formal theory document
+
+## Theory-Implementation Mapping
+
+Each theoretical construct has a corresponding implementation in the codebase. The mapping between theory and implementation is documented in the `theory/mappings/` directory:
+
+- `definition_map.yaml`: Maps formal definitions to code entities
+- `axiom_map.yaml`: Maps axioms to implementation rules
+- `theorem_map.yaml`: Maps theorems to algorithms and validations
+
+## Visualizations
+
+Visualizations of the theoretical concepts can be found in the [API Reference](../implementation/api/index.html) and the [Visualization Gallery](../examples/visualization-gallery.qmd).

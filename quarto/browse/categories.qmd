@@ -1,0 +1,104 @@
+---
+title: "Browse by Category"
+page-layout: full
+toc: false
+listing:
+  contents:
+    - "../concepts/*.qmd"
+    - "../docs/*.qmd"
+    - "../examples/*.qmd"
+    - "../research/*.qmd"
+  type: grid
+  sort: "date desc"
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  fields: [title, description, date, author, categories, status]
+  field-display-names:
+    status: "Status"
+  feed: true
+---
+
+Browse content by category using the filters above. You can select multiple categories and filter by status.
+
+## Featured Content
+
+:::{.grid}
+
+:::{.g-col-6}
+### Core Concepts
+
+The foundation of the Timekeeper framework, including the mathematical principles and key innovations.
+
+[Explore Concepts →](../concepts/index.qmd)
+:::
+
+:::{.g-col-6}
+### Implementation Guides
+
+Practical guides for implementing and using the Timekeeper framework in your projects.
+
+[View Implementation Guides →](../docs/getting-started.qmd)
+:::
+
+:::
+
+## Recent Updates
+
+```{python}
+#| echo: false
+#| output: asis
+
+import os
+import glob
+import yaml
+from datetime import datetime
+from pathlib import Path
+
+# Function to extract frontmatter
+def extract_frontmatter(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+        if content.startswith('---'):
+            # Extract YAML frontmatter
+            _, frontmatter, _ = content.split('---', 2)
+            try:
+                metadata = yaml.safe_load(frontmatter)
+                return metadata
+            except yaml.YAMLError:
+                return {}
+    return {}
+
+# Find all qmd files
+qmd_files = []
+for pattern in ['../concepts/*.qmd', '../docs/*.qmd', '../examples/*.qmd', '../research/*.qmd']:
+    qmd_files.extend(glob.glob(pattern))
+
+# Extract metadata and sort by date
+file_metadata = []
+for file in qmd_files:
+    metadata = extract_frontmatter(file)
+    if 'date' in metadata and 'title' in metadata:
+        metadata['file'] = file
+        file_metadata.append(metadata)
+
+# Sort by date (most recent first)
+file_metadata.sort(key=lambda x: x.get('date', ''), reverse=True)
+
+# Output recent updates (top 5)
+if file_metadata:
+    print("<ul>")
+    for item in file_metadata[:5]:
+        title = item.get('title', 'Untitled')
+        date = item.get('date', '')
+        status = item.get('status', 'Unknown')
+        file_path = item.get('file', '')
+        rel_path = os.path.relpath(file_path, '..')
+        
+        print(f'<li><a href="../{rel_path}">{title}</a> <span class="badge bg-primary">{status}</span> <small class="text-muted">({date})</small></li>')
+    print("</ul>")
+else:
+    print("<p>No recent updates found.</p>")
+```
+
+[View All Updates →](recent.qmd)

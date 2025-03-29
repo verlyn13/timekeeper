@@ -1,0 +1,223 @@
+---
+title: "Core Principles of the Timekeeper Framework"
+description: "Fundamental mathematical concepts and principles underlying the Timekeeper framework"
+date: "2025-03-28"
+author: "Research Team"
+categories: [Concept, Mathematical Foundation]
+tags: [temporal universe, hierarchical partitions, timepoints, operations]
+status: "Stable"
+version: "1.0.0"
+audience: [Researchers, Developers]
+scope: "Overview"
+related-concepts: [scheduling, adaptation]
+related-implementation: [math-to-code]
+theorem-references: [order-preservation, temporal-morphism-completeness]
+definition-references: [temporal-universe, hierarchical-partition, timepoint, canonical-representation]
+featured: true
+mathematical-level: "Intermediate"
+---
+
+<div class="status-{{< meta status | lower >}}">
+<strong>Status:</strong> {{< meta status >}}
+</div>
+
+<div class="audience-container">
+<strong>Audience:</strong>
+{{#each audience}}
+<span class="audience-badge audience-{{lowercase .}}">{{.}}</span>
+{{/each}}
+</div>
+
+## Overview
+
+The Timekeeper framework is built on a robust mathematical foundation that defines time as a hierarchically partitioned structure with well-defined operations. This document outlines the core principles and mathematical constructs that form the basis of the framework.
+
+## Temporal Universe and Hierarchical Partitions
+
+The fundamental concept in Timekeeper is the **temporal universe** ($\mathcal{T}$), which is partitioned into a sequence of nested uniform partitions.
+
+:::{.callout-note}
+## Definition 1: Temporal Universe
+
+Let $\mathcal{T}$ denote the temporal universe, a totally ordered set representing all possible time points in the system. We impose a strict total order $<_\mathcal{T}$ on $\mathcal{T}$, reflecting the sequential progression of time.
+:::
+
+This temporal universe is partitioned into hierarchical levels, where each level represents a different granularity of time.
+
+:::{.callout-note}
+## Definition 2: Hierarchical Temporal Partition
+
+The temporal universe $\mathcal{T}$ is partitioned into a sequence of uniform nested partitions $\{\Pi_0, \Pi_1, \ldots, \Pi_n\}$, where:
+
+- $\Pi_0 = \{\mathcal{T}\}$ is the trivial partition containing the entire temporal universe.
+- For each $i \in \{1, 2, \ldots, n\}$, $\Pi_i$ is a refinement of $\Pi_{i-1}$.
+- Each partition $\Pi_i$ consists of uniform blocks of equal temporal measure.
+- If $B \in \Pi_i$ and $B' \in \Pi_i$ are distinct blocks in the same partition, then either $\forall t \in B, t' \in B': t <_\mathcal{T} t'$ or $\forall t \in B, t' \in B': t' <_\mathcal{T} t$.
+:::
+
+The hierarchical nature of these partitions allows us to represent time at different levels of granularity, from coarse to fine.
+
+```{mermaid}
+%%| fig-cap: "Hierarchical partitioning of the temporal universe"
+graph TD
+    Universe["Temporal Universe (𝓣)"] --> Pi0["Π₀ (Epoch)"]
+    Pi0 --> Pi1["Π₁ (Cycle)"]
+    Pi1 --> Pi2["Π₂ (Step)"]
+    Pi2 --> Pi3["Π₃ (Microstep)"]
+    
+    style Universe fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style Pi0 fill:#e3f2fd,stroke:#0d47a1,stroke-width:1px
+    style Pi1 fill:#e8f5e9,stroke:#1b5e20,stroke-width:1px
+    style Pi2 fill:#fff3e0,stroke:#e65100,stroke-width:1px
+    style Pi3 fill:#f3e5f5,stroke:#4a148c,stroke-width:1px
+```
+
+## Timepoints and Operations
+
+Within this partitioned temporal universe, we define **timepoints** as specific locations in time, represented as tuples that indicate positions within each partition level.
+
+:::{.callout-note}
+## Definition 6: Timepoint
+
+A timepoint $\tau \in \mathcal{T}$ is represented as an ordered $n$-tuple $(a_0, a_1, \ldots, a_{n-1})$ where:
+
+- $a_0 \in \mathbb{Z}_{\geq 0}$ indicates the $U_0$ unit (typically starting at 0).
+- For each $1 \leq i < n$, $a_i \in \{0, 1, \ldots, k_i-1\}$ indicates the position within the $U_{i-1}$ unit.
+:::
+
+We define operations on timepoints, such as addition and subtraction, to allow for temporal manipulation:
+
+:::{.callout-note}
+## Axiom 2: Temporal Addition
+
+For timepoints $\tau = (a_0, a_1, \ldots, a_{n-1})$ and $\tau' = (a'_0, a'_1, \ldots, a'_{n-1})$, the addition operation $\oplus$ is defined as:
+$\tau \oplus \tau' = \mathrm{Normalize}((a_0 + a'_0, a_1 + a'_1, \ldots, a_{n-1} + a'_{n-1}))$
+where $\mathrm{Normalize}$ applies the canonical representation procedure.
+:::
+
+These operations form the basis for temporal calculations in the framework.
+
+## Visualization of Concepts
+
+To better understand these abstract concepts, we can visualize how a timepoint is represented in the hierarchical structure:
+
+```{python}
+#| fig-cap: "Visualization of a timepoint in the hierarchical temporal structure"
+#| echo: false
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Rectangle
+
+# Create a simple visualization
+fig, ax = plt.subplots(figsize=(10, 4))
+
+# Define the units and their subdivisions
+units = ['Epoch', 'Cycle', 'Step', 'Microstep']
+subdivisions = [24, 60, 1000]  # Each unit's subdivision factor
+
+# Set up y-axis
+y_positions = np.arange(len(units))
+ax.set_yticks(y_positions)
+ax.set_yticklabels(units)
+
+# Set axis labels
+ax.set_title('Timepoint (2, 15, 30, 500) in Hierarchical Structure')
+ax.set_xlabel('Time')
+ax.set_ylabel('Hierarchical Units')
+
+# Draw hierarchical representation
+# Example timepoint: (2, 15, 30, 500)
+timepoint = [2, 15, 30, 500]
+
+# Calculate absolute positions for visualization
+total_width = timepoint[0] * subdivisions[0] * subdivisions[1] * subdivisions[2]
+total_width += timepoint[1] * subdivisions[1] * subdivisions[2]
+total_width += timepoint[2] * subdivisions[2]
+total_width += timepoint[3]
+
+# Normalize to 0-1 for visualization
+normalized_width = 1.0
+scale_factor = normalized_width / total_width
+
+# Draw each level
+current_pos = 0
+for i, (unit, value) in enumerate(zip(units, timepoint)):
+    # Calculate width for this unit's contribution
+    if i == 0:
+        width = value * subdivisions[0] * subdivisions[1] * subdivisions[2] * scale_factor
+    elif i == 1:
+        width = value * subdivisions[1] * subdivisions[2] * scale_factor
+    elif i == 2:
+        width = value * subdivisions[2] * scale_factor
+    else:
+        width = value * scale_factor
+    
+    # Draw rectangle
+    if width > 0:
+        rect = Rectangle((current_pos, i-0.4), width, 0.8, 
+                         facecolor=['#e3f2fd', '#e8f5e9', '#fff3e0', '#f3e5f5'][i], 
+                         alpha=0.7, edgecolor='blue')
+        ax.add_patch(rect)
+        # Add label
+        ax.text(current_pos + width/2, i, f"{value}", va='center', ha='center', fontweight='bold')
+    
+    current_pos += width
+
+# Add vertical line at the timepoint's position
+ax.axvline(x=current_pos, color='red', linestyle='-', linewidth=2, label='Timepoint Position')
+
+# Set axis limits and remove spines for cleaner look
+ax.set_xlim(0, normalized_width * 1.1)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+## Mathematical Properties
+
+The Timekeeper framework ensures several important mathematical properties:
+
+1. **Order Preservation**: The lexicographical order on timepoints preserves the natural progression of time.
+2. **Temporal Morphism Completeness**: The morphisms between agent time and human time form a bijection that preserves order and relative durations.
+3. **Modular Sublattice**: The hierarchy of temporal partitions forms a modular sublattice of the partition lattice.
+
+These properties ensure that the temporal system behaves intuitively and consistently.
+
+## Implementation Implications
+
+The mathematical foundation directly informs the implementation of the framework:
+
+```python
+class AgentTemporal:
+    """
+    Implementation of the temporal universe (Definition 1) and
+    hierarchical partitions (Definition 2).
+    """
+    def __init__(self, unit_config=None):
+        # Initialize with a hierarchy of time units
+        # Each unit corresponds to a partition level
+        self.default_config = [
+            {"name": "epoch", "subdivisions": 24},   # Pi_0
+            {"name": "cycle", "subdivisions": 60},   # Pi_1
+            {"name": "step",  "subdivisions": 1000}, # Pi_2
+            {"name": "microstep", "subdivisions": None, "is_base": True}  # Pi_3
+        ]
+        # ...
+```
+
+For a detailed mapping of mathematical concepts to code, see the [Math-to-Code Mapping](../docs/math-to-code.qmd) document.
+
+## Next Steps
+
+With these core principles established, we can now explore:
+
+1. [Task Scheduling](scheduling.qmd): How tasks are scheduled within this temporal framework
+2. [Dynamic Adaptation](adaptation.qmd): How the system adapts to changing conditions
+3. [System Architecture](architecture.qmd): How these concepts are organized into a cohesive system
+
+## References
+
+1. For formal definitions and proofs, see the original paper: "Formal Description of the AgentTemporal Framework: A Hierarchical Partition-Based Approach to Temporal Optimization in Small-Scale Agent Systems"

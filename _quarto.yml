@@ -1,0 +1,160 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "quarto/**/*.qmd" 
+    - "!quarto/_templates/"
+  resources:
+    - "assets/"
+
+website:
+  title: "Timekeeper"
+  description: "A Hierarchical Partition-Based Approach to Temporal Optimization in Small-Scale Agent Systems"
+  repo-url: https://github.com/verlyn13/timekeeper
+  repo-actions: [edit, issue]
+  open-graph: true
+  site-url: https://verlyn13.github.io/timekeeper/
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "Concepts"
+        menu:
+          - text: "Overview"
+            file: quarto/concepts/index.qmd
+          - text: "Core Principles"
+            file: quarto/concepts/principles.qmd
+          - text: "Task Scheduling"
+            file: quarto/concepts/scheduling.qmd
+          - text: "Dynamic Adaptation"
+            file: quarto/concepts/adaptation.qmd
+          - text: "Architecture"
+            file: quarto/concepts/architecture.qmd
+      - text: "Implementation"
+        menu:
+          - text: "Getting Started"
+            file: quarto/docs/getting-started.qmd
+          - text: "Math-to-Code Mapping"
+            file: quarto/docs/math-to-code.qmd
+          - text: "API Reference"
+            href: api/index.html
+      - text: "Examples"
+        menu:
+          - text: "Interactive Demo"
+            file: quarto/docs/interactive-demo.qmd
+          - text: "Use Cases"
+            file: quarto/examples/use-cases.qmd
+          - text: "Visualization Gallery"
+            file: quarto/examples/visualization-gallery.qmd
+      - text: "Browse"
+        menu:
+          - text: "By Status"
+            file: quarto/browse/status.qmd
+          - text: "By Category"
+            file: quarto/browse/categories.qmd
+          - text: "By Audience"
+            file: quarto/browse/audience.qmd
+          - text: "Latest Updates"
+            file: quarto/browse/recent.qmd
+    right:
+      - icon: github
+        href: https://github.com/verlyn13/timekeeper
+  
+  sidebar:
+    - title: "Concepts"
+      style: docked
+      contents:
+        - quarto/concepts/index.qmd
+        - quarto/concepts/principles.qmd
+        - quarto/concepts/scheduling.qmd
+        - quarto/concepts/adaptation.qmd
+        - quarto/concepts/architecture.qmd
+    - title: "Implementation"
+      contents:
+        - quarto/docs/getting-started.qmd
+        - quarto/docs/math-to-code.qmd
+        - section: "API Reference"
+          contents:
+            - href: api/index.html
+            - href: api/agent_temporal.html
+            - href: api/task_scheduler.html
+            - href: api/adaptive_agent_temporal.html
+            - href: api/visualization.html
+    - title: "Examples"
+      contents:
+        - quarto/docs/interactive-demo.qmd
+        - quarto/examples/use-cases.qmd
+        - quarto/examples/visualization-gallery.qmd
+    - title: "Research"
+      contents:
+        - quarto/research/index.qmd
+        - quarto/research/hypotheses.qmd
+        - quarto/research/experiments.qmd
+        - quarto/research/results.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-tools: true
+    highlight-style: a11y
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="api/_static/custom.css">
+        <style>
+        /* Status indicator styles */
+        .status-draft {
+          border-left: 5px solid orange;
+          padding-left: 15px;
+          background-color: #fff3e0;
+        }
+        .status-experimental {
+          border-left: 5px solid blue;
+          padding-left: 15px;
+          background-color: #e3f2fd;
+        }
+        .status-stable {
+          border-left: 5px solid green;
+          padding-left: 15px;
+          background-color: #e8f5e9;
+        }
+        .status-deprecated {
+          border-left: 5px solid red;
+          padding-left: 15px;
+          background-color: #ffebee;
+          text-decoration: line-through;
+        }
+        
+        /* Audience indicators */
+        .audience-badge {
+          display: inline-block;
+          padding: 3px 8px;
+          border-radius: 3px;
+          margin-right: 5px;
+          font-size: 0.8em;
+          font-weight: bold;
+        }
+        .audience-researchers {
+          background-color: #e3f2fd;
+          color: #0d47a1;
+        }
+        .audience-developers {
+          background-color: #e8f5e9;
+          color: #1b5e20;
+        }
+        </style>
+
+execute:
+  echo: true
+  warning: true
+  message: true
+  freeze: auto

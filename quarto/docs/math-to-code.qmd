@@ -1,0 +1,361 @@
+---
+title: "Math-to-Code Mapping"
+subtitle: "Connecting Formal Definitions to Python Implementation"
+format:
+  html:
+    code-fold: false
+    toc: true
+    toc-depth: 3
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+bibliography: references.bib
+execute:
+  echo: true
+---
+
+## Overview
+
+This document provides an explicit mapping between the formal mathematical constructs defined in our paper and their corresponding implementations in Python code. For each definition, theorem, or axiom, we show exactly how it's realized in software.
+
+## Foundational Mappings
+
+### Temporal Universe $\mathcal{T}$
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Temporal Universe]
+Let $\mathcal{T}$ denote the temporal universe, a totally ordered set representing all possible time points in the system. We impose a strict total order $<_\mathcal{T}$ on $\mathcal{T}$, reflecting the sequential progression of time.
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+class AgentTemporal:
+    """
+    Maps directly to the fundamental time system described in the paper.
+    The entire class represents the temporal universe 𝓣 (Definition 1).
+    
+    In this implementation, the universe 𝓣 is not a single data structure but
+    the conceptual "universe" that emerges from all valid timepoints under
+    the system's partitions.
+    """
+    def __init__(self, unit_config=None):
+        # ...initialization code...
+        pass
+```
+:::
+
+### Hierarchical Temporal Partition
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Hierarchical Temporal Partition]
+The temporal universe $\mathcal{T}$ is partitioned into a sequence of uniform nested partitions $\{\Pi_0, \Pi_1, \ldots, \Pi_n\}$, where:
+\begin{itemize}
+    \item $\Pi_0 = \{\mathcal{T}\}$ is the trivial partition containing the entire temporal universe.
+    \item For each $i \in \{1, 2, \ldots, n\}$, $\Pi_i$ is a refinement of $\Pi_{i-1}$.
+    \item Each partition $\Pi_i$ consists of uniform blocks of equal temporal measure.
+    \item If $B \in \Pi_i$ and $B' \in \Pi_i$ are distinct blocks in the same partition, then either $\forall t \in B, t' \in B': t <_\mathcal{T} t'$ or $\forall t \in B, t' \in B': t' <_\mathcal{T} t$.
+\end{itemize}
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+def __init__(self, unit_config=None):
+    """
+    Initialize the temporal system with a hierarchy of partitions.
+    
+    Each element in self.units corresponds to a partition Pi_i in the mathematical definition.
+    The ordering from coarsest to finest is preserved in the list.
+    """
+    # Default configuration represents {Pi_0, Pi_1, ..., Pi_n}
+    self.default_config = [
+        # Pi_0: coarsest partition
+        {"name": "epoch", "subdivisions": 24},   # e.g., 1 epoch -> 24 cycles
+        # Pi_1:
+        {"name": "cycle", "subdivisions": 60},   # 1 cycle -> 60 steps
+        # Pi_2:
+        {"name": "step",  "subdivisions": 1000}, # 1 step -> 1000 microsteps
+        # Pi_3: finest partition
+        {"name": "microstep", "subdivisions": None, "is_base": True}
+    ]
+    # If user gave a config, use it; otherwise use default
+    self.units = unit_config if unit_config else self.default_config
+    
+    # The rest of the initialization...
+```
+:::
+
+### Subdivision Factor
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Subdivision Factor]
+For each adjacent pair of temporal units $(U_i, U_{i+1})$, the subdivision factor $k_{i+1}$ represents the number of $U_{i+1}$ units contained in a single $U_i$ unit. Formally:
+\begin{equation}
+k_{i+1} = \frac{|B_{i+1}|}{|B_i|}
+\end{equation}
+where $B_i \in \Pi_i$ and $B_{i+1} \in \Pi_{i+1}$ are corresponding blocks of the partitions.
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+# In the unit configuration:
+self.default_config = [
+    {"name": "epoch", "subdivisions": 24},   # k_1 = 24
+    {"name": "cycle", "subdivisions": 60},   # k_2 = 60
+    {"name": "step",  "subdivisions": 1000}, # k_3 = 1000
+    {"name": "microstep", "subdivisions": None, "is_base": True}
+]
+
+# The subdivision factors are directly stored in the "subdivisions" field
+# For any unit i, the subdivisions value is exactly k_{i+1} from the math
+```
+:::
+
+### Timepoint Representation
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Timepoint]
+A timepoint $\tau \in \mathcal{T}$ is represented as an ordered $n$-tuple $(a_0, a_1, \ldots, a_{n-1})$ where:
+\begin{itemize}
+    \item $a_0 \in \mathbb{Z}_{\geq 0}$ indicates the $U_0$ unit (typically starting at 0).
+    \item For each $1 \leq i < n$, $a_i \in \{0, 1, \ldots, k_i-1\}$ indicates the position within the $U_{i-1}$ unit.
+\end{itemize}
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+def create_timepoint(self, **kwargs):
+    """
+    Creates a timepoint dictionary, e.g. (a_0, ..., a_{n-1}) in the paper,
+    from the user-specified partial info. Missing units default to 0.
+    
+    Instead of a tuple, we use a dictionary mapping unit names to values.
+    For example:
+    (3, 5, 10, 500) in mathematical notation becomes
+    {"epoch": 3, "cycle": 5, "step": 10, "microstep": 500} in code
+    """
+    # Initialize with 0 for all units
+    tp = {u["name"]: 0 for u in self.units}
+    # Fill any user-provided values
+    for k, v in kwargs.items():
+        if k not in tp:
+            raise ValueError(f"Unknown unit '{k}' in create_timepoint(...)")
+        tp[k] = v
+    # Normalize to ensure values are in canonical form
+    return self.normalize(tp)
+```
+:::
+
+### Canonical Normalization
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Canonical Timepoint Representation]
+The canonical representation of a timepoint ensures that each component $a_i$ satisfies $0 \leq a_i < k_i$. A timepoint not in canonical form can be normalized through the following procedure:
+
+For a non-canonical timepoint $(a_0, a_1, \ldots, a_{n-1})$:
+\begin{enumerate}
+    \item Initialize carry $c = 0$
+    \item For $i = n-1$ down to $1$:
+        \begin{enumerate}
+            \item $a_i = a_i + c$
+            \item $c = \lfloor a_i / k_i \rfloor$
+            \item $a_i = a_i \bmod k_i$
+        \end{enumerate}
+    \item $a_0 = a_0 + c$
+\end{enumerate}
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+def normalize(self, timepoint):
+    """
+    Canonical normalization (Definition 7).  This ensures that for each unit i,
+    the value is in [0, subdivisions_i), by carrying over to the coarser unit
+    if necessary.
+    
+    We implement this by converting to base units and back, which accomplishes
+    the same normalization but is simpler to code and maintain.
+    """
+    # Convert to the base unit measure
+    total_base = self.to_base_units(timepoint)
+    # Convert back from base to hierarchical
+    return self.from_base_units(total_base)
+```
+:::
+
+### Absolute Representation
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{definition}[Absolute Representation]
+Any timepoint $\tau = (a_0, a_1, \ldots, a_{n-1})$ can be converted to a single absolute value $|\tau|_{U_n}$ representing the total count of $U_n$ units:
+\begin{equation}
+|\tau|_{U_n} = a_0 \cdot \prod_{i=1}^{n-1} k_i + a_1 \cdot \prod_{i=2}^{n-1} k_i + \ldots + a_{n-2} \cdot k_{n-1} + a_{n-1}
+\end{equation}
+\end{definition}
+```
+
+#### Python Implementation
+
+```python
+def to_base_units(self, timepoint):
+    """
+    = |tau|_{U_n} in the paper (Definition 9).
+    Sums up each a_i * conversion_factor to the base partition.
+    """
+    total = 0
+    for unit_name, amount in timepoint.items():
+        factor = self.conversion_factors[(unit_name, self.units[self.base_unit_index]["name"])]
+        total += amount * factor
+    return total
+
+def from_base_units(self, base_value):
+    """
+    The inverse of to_base_units, i.e. given an absolute measure in the base partition,
+    reconstruct the hierarchical representation (a_0, a_1, ..., a_{n-1}).
+    """
+    # We proceed from the coarsest to the base. 
+    # We'll produce integer "digits" in each partition's base. 
+    # That is the direct analog of the canonical form described in the paper.
+    result = {}
+    remainder = base_value
+    for i, u in enumerate(self.units):
+        # If i is not the last index, we see how many of that unit fit in remainder
+        # using the factor from that unit to the base. 
+        conv = self.conversion_factors[(u["name"], self.units[self.base_unit_index]["name"])]
+        # conv = how many base units is 1 of u
+        if conv != 0:
+            # integer portion of remainder / conv
+            count = int(remainder // conv)
+            result[u["name"]] = count
+            # subtract that from remainder
+            remainder -= count * conv
+        else:
+            result[u["name"]] = 0
+    return result
+```
+:::
+
+### Temporal Addition and Subtraction
+
+::: {.panel-tabset}
+#### Mathematical Definition
+
+```{=latex}
+\begin{axiom}[Temporal Addition]
+For timepoints $\tau = (a_0, a_1, \ldots, a_{n-1})$ and $\tau' = (a'_0, a'_1, \ldots, a'_{n-1})$, the addition operation $\oplus$ is defined as:
+\begin{equation}
+\tau \oplus \tau' = \mathrm{Normalize}((a_0 + a'_0, a_1 + a'_1, \ldots, a_{n-1} + a'_{n-1}))
+\end{equation}
+where $\mathrm{Normalize}$ applies the canonical representation procedure.
+\end{axiom}
+
+\begin{axiom}[Temporal Subtraction]
+For timepoints $\tau = (a_0, a_1, \ldots, a_{n-1})$ and $\tau' = (a'_0, a'_1, \ldots, a'_{n-1})$ where $\tau \geq_\mathcal{T} \tau'$, the subtraction operation $\ominus$ is defined as:
+\begin{equation}
+\tau \ominus \tau' = \mathrm{Normalize}((b_0, b_1, \ldots, b_{n-1}))
+\end{equation}
+where $(b_0, b_1, \ldots, b_{n-1})$ is computed through a borrowing algorithm similar to standard arithmetic subtraction, ensuring $|\tau \ominus \tau'|_{U_n} = |\tau|_{U_n} - |\tau'|_{U_n}$.
+\end{axiom}
+```
+
+#### Python Implementation
+
+```python
+def add_time(self, tp, **kwargs):
+    """
+    Implementation of Tau ⊕ Tau' (Temporal Addition, Axiom in the paper).
+    1) Convert both to base
+    2) sum
+    3) re-normalize
+    """
+    base_main = self.to_base_units(tp)
+    # Build an additive timepoint from kwargs, e.g. step=5
+    addition_tp = self.create_timepoint(**kwargs)
+    base_add = self.to_base_units(addition_tp)
+    summed = base_main + base_add
+    return self.from_base_units(summed)
+
+def subtract_time(self, tp, **kwargs):
+    """
+    Implementation of Tau ⊖ Tau' (Temporal Subtraction, Axiom in the paper).
+    """
+    base_main = self.to_base_units(tp)
+    sub_tp = self.create_timepoint(**kwargs)
+    base_sub = self.to_base_units(sub_tp)
+    if base_sub > base_main:
+        raise ValueError("Subtraction would produce a negative time result.")
+    result = base_main - base_sub
+    return self.from_base_units(result)
+```
+:::
+
+## Extending the Framework
+
+```{python}
+#| echo: true
+
+# Let's demonstrate a simple example of the framework in action
+from src.python.agent_temporal import AgentTemporal
+
+# Create a temporal system
+temporal = AgentTemporal()
+
+# Create some timepoints
+t1 = temporal.create_timepoint(epoch=1, cycle=12, step=30)
+t2 = temporal.create_timepoint(cycle=10, step=45)
+
+# Demonstrate addition
+t3 = temporal.add_time(t1, cycle=5, step=25)
+
+print(f"Timepoint 1: {t1}")
+print(f"Timepoint 2: {t2}")
+print(f"Timepoint 1 + (5 cycles, 25 steps): {t3}")
+
+# Demonstrate conversion to human time
+human_time = temporal.to_human_time(t3)
+print(f"Human time equivalent: {human_time}")
+```
+
+## Implementation Notes
+
+Throughout the implementation, we've made several deliberate design choices:
+
+1. **Dictionary vs. Tuple Representation**: While the mathematical definition uses tuples like $(a_0, a_1, ..., a_{n-1})$, our code uses dictionaries with unit names as keys for better readability and ease of use.
+
+2. **Base Unit Conversion**: For operations like addition and normalization, we convert to a single base value first, which simplifies the implementation while maintaining mathematical correctness.
+
+3. **Configuration-Driven**: The system is highly configurable, allowing customization of the temporal units and subdivision factors to match specific application needs.
+
+4. **Forward/Inverse Morphisms**: We implement the human time mappings as direct functions that transform between the temporal domains, exactly matching the mathematical morphism definitions.
+
+## Conclusion
+
+This document demonstrates the exact correspondence between the mathematical framework described in our paper and its Python implementation. By providing this explicit mapping, we ensure that the code faithfully represents the theoretical model, maintaining its properties and guarantees.

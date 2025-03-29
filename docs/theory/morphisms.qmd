@@ -1,0 +1,21 @@
+---
+title: Temporal Morphisms
+---
+
+# Temporal Morphisms
+
+:::: {.math-definition}
+::: {.math-title}
+Definitions 16-19
+:::
+
+This is a placeholder for the temporal morphisms definition.
+::::
+
+## Mathematical Foundation
+
+The mathematical foundation for the temporal morphisms is based on the formal definition in `theory/formal/definitions.tex`.
+
+## Implementation
+
+The implementation of this concept can be found in the [API Reference](../implementation/api/index.html).

@@ -1,0 +1,59 @@
+# TIMEKEEPER PROJECT ARCHITECT RULES
+
+## Coding Standards
+
+- Use Python type hints for all function definitions
+- Follow PEP 8 style guidelines with 88 character line limit (Black compatible)
+- Organize imports in three sections: standard library, third-party, local
+- Enforce clear naming: mathematical concepts should use notation-inspired names
+- Use docstrings that explain both implementation and mathematical theory
+
+## Mathematical Implementation
+
+- Implement temporal logic structures using abstract base classes
+- Use explicit typing for all temporal objects
+- Ensure all mathematical properties have corresponding test cases
+- Maintain bidirectional traceability between mathematical definitions and code
+- Document any deviations from mathematical theory with explicit rationale
+
+## Architecture Patterns
+
+- Use factory pattern for creating temporal objects
+- Apply strategy pattern for different temporal calculation methods
+- Implement observer pattern for temporal change propagation
+- Ensure serialization-deserialization symmetry for all temporal objects
+- Separate pure calculation functions from state management
+- Use dependency injection for system components
+
+## Testing Requirements
+
+- Create property-based tests for mathematical invariants
+- Implement edge case tests for temporal boundary conditions
+- Use hypothesis for generative testing where applicable
+- Maintain test coverage above 90% for core functionality
+- Structure tests to match the mathematical properties being verified
+- Include performance benchmarks for critical operations
+
+## Infrastructure
+
+- Containerize the development environment using Docker
+- Implement CI/CD pipeline with GitHub Actions
+- Use pre-commit hooks for code quality enforcement
+- Configure automated documentation generation
+- Set up dependency management with poetry
+
+## Collaboration
+
+- Document architectural decisions with ADRs (Architecture Decision Records)
+- Include references to documentation sections in code comments
+- Create diagrams for complex subsystems
+- Maintain a development roadmap with clear milestones
+- Review integration points with documentation specialist weekly
+
+## MVP Development
+
+- Focus on core temporal system before advanced features
+- Implement task scheduling with minimal dependencies first
+- Create simple visualization interfaces for key concepts
+- Establish comprehensive test coverage for critical components
+- Document public APIs thoroughly

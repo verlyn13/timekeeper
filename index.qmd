@@ -1,0 +1,249 @@
+---
+title: "Timekeeper"
+subtitle: "A Hierarchical Partition-Based Approach to Temporal Optimization in Small-Scale Agent Systems"
+page-layout: full
+toc: false
+---
+
+::: {.hero}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Timekeeper</h1>
+      <p>Intelligent Task Scheduling with Dynamic Temporal Adaptation</p>
+      <div class="hero-buttons">
+        <a href="quarto/concepts/index.html" class="primary">Learn More</a>
+        <a href="quarto/docs/interactive-demo.html" class="secondary">See it in Action</a>
+        <a href="https://github.com/verlyn13/timekeeper" class="secondary">Get the Code</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <!-- Animated visualization will go here -->
+    </div>
+  </div>
+</div>
+:::
+
+## Overview
+
+Timekeeper is a framework for optimizing temporal dynamics in small-scale agent ensembles. It employs hierarchical partitions of temporal units and establishes morphisms between agent-native time and conventional human time representations.
+
+:::{.features}
+:::{.feature}
+<div class="feature-icon">⏱️</div>
+### Hierarchical Temporal Partitioning
+Organize time into nested uniform partitions for optimal representation at different scales. The framework provides a mathematically rigorous foundation for temporal representation.
+:::
+
+:::{.feature}
+<div class="feature-icon">🔄</div>
+### Dynamic Adaptability
+Automatically adjust temporal granularity based on usage patterns and system requirements. The system evolves to match the specific needs of your application.
+:::
+
+:::{.feature}
+<div class="feature-icon">📋</div>
+### Task Scheduling
+Efficiently schedule tasks with dependencies and resource constraints, optimized for small-scale agent systems with 1-3 agents.
+:::
+
+:::{.feature}
+<div class="feature-icon">🔄</div>
+### Human-Agent Time Mapping
+Bidirectional morphisms between agent time and human time enable seamless translation between different temporal paradigms.
+:::
+:::
+
+## Visualizing the Framework
+
+```{python}
+#| echo: false
+#| fig-cap: "Hierarchical Temporal Structure"
+
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Rectangle
+
+# Create hierarchy visualization
+fig, ax = plt.subplots(figsize=(10, 5))
+
+# Define units and their colors
+units = ["Epoch", "Cycle", "Step", "Microstep"]
+colors = ["#e3f2fd", "#e8f5e9", "#fff3e0", "#f3e5f5"]
+border_colors = ["#0d47a1", "#1b5e20", "#e65100", "#4a148c"]
+
+# Set up y-axis
+y_positions = np.arange(len(units))
+ax.set_yticks(y_positions)
+ax.set_yticklabels(units)
+
+# Draw subdivision lines
+# Subdivisions (for illustration): 1 epoch = 24 cycles, 1 cycle = 60 steps, 1 step = 1000 microsteps
+subdivisions = [24, 60, 1000]
+
+# Scale to fit visualization
+max_width = 1.0
+x_tick_positions = []
+x_tick_labels = []
+
+# Draw each level
+for i, unit in enumerate(units[:-1]):  # Skip the last (finest) unit
+    subdiv = subdivisions[i]
+    
+    # Only draw a subset of ticks for readability
+    if subdiv > 50:
+        ticks = [j for j in range(subdiv+1) if j % (subdiv//10) == 0]
+    elif subdiv > 20:
+        ticks = [j for j in range(subdiv+1) if j % 5 == 0]
+    else:
+        ticks = list(range(subdiv+1))
+    
+    width_per_tick = max_width / subdiv
+    
+    # Draw ticks
+    for tick in ticks:
+        x = tick * width_per_tick
+        # Draw vertical line
+        ax.axvline(x=x, ymin=(i/len(units)), ymax=((i+1)/len(units)), 
+                  color=border_colors[i], linestyle='-', alpha=0.5, linewidth=0.5)
+        
+        # Store tick positions for labeling
+        if i == 0:  # Only label the top level for clarity
+            x_tick_positions.append(x)
+            x_tick_labels.append(str(tick))
+
+# Set up x-axis with custom ticks
+ax.set_xticks(x_tick_positions)
+ax.set_xticklabels(x_tick_labels)
+ax.set_xlabel("Time Units")
+
+# Add a horizontal line for each level
+for i in range(len(units)):
+    ax.axhline(y=i-0.5, color='gray', linestyle='-', alpha=0.3)
+
+# Highlight a specific timepoint
+timepoint = (2, 15, 30, 500)  # Example: 2 epochs, 15 cycles, 30 steps, 500 microsteps
+timepoint_x = (timepoint[0] * subdivisions[0] * subdivisions[1] * subdivisions[2] + 
+               timepoint[1] * subdivisions[1] * subdivisions[2] + 
+               timepoint[2] * subdivisions[2] + 
+               timepoint[3]) / (subdivisions[0] * subdivisions[1] * subdivisions[2]) * max_width
+
+# Draw a vertical line at the timepoint
+ax.axvline(x=timepoint_x, color='red', linestyle='-', linewidth=2, label='Timepoint (2, 15, 30, 500)')
+
+# Add legend
+ax.legend(loc='upper right')
+
+# Clean up the plot
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_title('Hierarchical Partitioning of Time')
+ax.set_xlim(0, max_width)
+
+plt.tight_layout()
+plt.show()
+```
+
+## Key Features
+
+- **Hierarchical Temporal Partitioning**: Organize time into nested uniform partitions
+- **Timepoint Operations**: Well-defined addition, subtraction, and comparison
+- **Human-Agent Time Mapping**: Bidirectional morphisms between agent time and human time
+- **Dynamic Adaptability**: Automatic adjustment of temporal granularity
+- **Task Scheduling**: Optimized scheduling for small-scale agent systems
+
+## Mathematical Foundation
+
+Timekeeper is built on a rigorous mathematical foundation including:
+
+- Temporal universe and total ordering
+- Hierarchical partitions and refinement relations
+- Canonical timepoint representations
+- Temporal morphisms
+- Partition lattice structures
+
+For a deep dive into the mathematical concepts, see the [Core Principles](quarto/concepts/principles.html) document.
+
+## Implementation
+
+The framework provides a clean, well-documented implementation in Python:
+
+```python
+from timekeeper import AgentTemporal, TaskScheduler
+
+# Create a temporal system
+temporal = AgentTemporal()
+
+# Create timepoints
+t1 = temporal.create_timepoint(epoch=1, cycle=15, step=30)
+t2 = temporal.add_time(t1, cycle=5, step=20)
+
+# Schedule tasks
+scheduler = TaskScheduler(temporal)
+scheduler.add_task("T1", {"step": 100})
+scheduler.add_task("T2", {"cycle": 2}, ["T1"])
+scheduled_tasks = scheduler.schedule()
+```
+
+For detailed implementation information, see the [Getting Started](quarto/docs/getting-started.html) guide.
+
+## Use Cases
+
+Timekeeper is designed for applications where:
+
+- Time representation must be flexible and adaptive
+- Tasks have complex dependencies and constraints
+- Small teams of agents need coordinated scheduling
+- Human-interpretable time expressions must coexist with agent-optimal representations
+
+For specific examples, see the [Use Cases](quarto/examples/use-cases.html) documentation.
+
+## Getting Started
+
+To start using Timekeeper, follow these steps:
+
+1. **Install**: `pip install timekeeper`
+2. **Import**: `from timekeeper import AgentTemporal`
+3. **Configure**: Create a temporal system with your desired units
+4. **Use**: Create timepoints, perform operations, schedule tasks
+
+For detailed instructions, see the [Getting Started](quarto/docs/getting-started.html) guide.
+
+---
+
+::::{.grid}
+:::{.g-col-4}
+### [Core Concepts](/quarto/concepts/index.html)
+Explore the theoretical foundations
+:::
+
+:::{.g-col-4}
+### [Implementation](/quarto/docs/getting-started.html)
+Learn how to use the framework
+:::
+
+:::{.g-col-4}
+### [Examples](/quarto/docs/interactive-demo.html)
+See the framework in action
+:::
+::::
+
+## Research and Development
+
+Timekeeper is an active research project with ongoing development in several areas:
+
+- **Dynamic Adaptation Algorithms**: Improving adaptation strategies based on usage patterns
+- **Task Scheduling Optimization**: Enhancing scheduling efficiency for complex dependency graphs
+- **Multi-Agent Coordination**: Investigating coordination patterns in small-scale agent systems
+
+For more information on current research, see the [Research Compendium](/quarto/research/index.html).
+
+## Community
+
+Join the Timekeeper community to contribute to the project and stay updated on the latest developments:
+
+- **GitHub**: [github.com/verlyn13/timekeeper](https://github.com/verlyn13/timekeeper)
+- **Documentation**: [verlyn13.github.io/timekeeper](https://verlyn13.github.io/timekeeper)
+- **Issues**: [github.com/verlyn13/timekeeper/issues](https://github.com/verlyn13/timekeeper/issues)
+
+We welcome contributions from researchers, developers, and users. See the [Contributing Guide](/quarto/docs/contributing.html) for more information.

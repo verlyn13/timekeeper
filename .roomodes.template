@@ -1,0 +1,151 @@
+// Template: Roo Custom Modes and Associated Configuration Files
+
+// File: cline_custom_modes.json (Global Configuration)
+{
+  "customModes": [
+    {
+      "slug": "mode-slug",
+      "name": "Descriptive Mode Name",
+      "roleDefinition": "Detailed description of Roo's expertise and role in this mode.",
+      "groups": [
+        "read",
+        ["edit", {
+          "fileRegex": "\\.extension$",
+          "description": "Only edit files matching the .extension format"
+        }],
+        ["create", {
+          "fileRegex": "src/.*\\.js$",
+          "description": "Create new JavaScript files only within the src directory"
+        }]
+      ],
+      "availableTools": [
+        "terminal",
+        "web",
+        "file-system"
+      ],
+      "customInstructions": "Specific behavioral guidelines and detailed instructions."
+    }
+  ]
+}
+
+// File: .roomodes (Project-specific Configuration)
+{
+  "customModes": [
+    {
+      "slug": "docs-writer",
+      "name": "Documentation Writer",
+      "roleDefinition": "You are a technical writer specializing in software documentation, APIs, and user guides.",
+      "groups": [
+        "read",
+        ["edit", {
+          "fileRegex": "docs/.*\\.md$",
+          "description": "Markdown files within the docs directory only"
+        }]
+      ],
+      "availableTools": [
+        "web",
+        "file-system"
+      ],
+      "customInstructions": "Prioritize clarity, include examples, maintain consistent formatting."
+    }
+  ]
+}
+
+// File: .clinerules (Global Project Instructions)
+"Use spaces instead of tabs for indentation.
+Maximum line length is 80 characters.
+Include clear, concise comments explaining logic."
+
+// File: .clinerules-code (Mode-specific Instructions for 'code' mode)
+"Prefer functional programming paradigms.
+Always include unit tests for newly created functions.
+Adhere strictly to SOLID principles."
+
+// File: .clinerules-docs-writer (Mode-specific Instructions for 'docs-writer' mode)
+"Write in active voice.
+Break down complex concepts into bullet points.
+Include a table of contents at the top of documents."
+
+// Example MCP Server Configuration (Dynamic Server Creation)
+{
+  "mcpServers": [
+    {
+      "name": "npmDocsServer",
+      "description": "Fetches latest NPM package documentation",
+      "endpoint": "https://registry.npmjs.org",
+      "methods": [
+        "GET"
+      ],
+      "authentication": null
+    }
+  ]
+}
+
+// Command Automation Allowlist Example
+{
+  "autoApproveCommands": [
+    "npm run build",
+    "npm test",
+    "git status"
+  ]
+}
+
+// Experimental Features Configuration Example
+{
+  "experimentalFeatures": {
+    "powerSteering": true,
+    "alternativeDiffEditing": false,
+    "checkpoints": true,
+    "sharedContext": false
+  }
+}
+
+// Project-level Comprehensive Configuration Example
+
+// File: .clinerules-project
+"Ensure consistency across project files.
+Strict adherence to coding standards outlined in CONTRIBUTING.md.
+Implement detailed inline documentation and code comments.
+All commits must follow Conventional Commits specification."
+
+// File: .projectmodes
+{
+  "customModes": [
+    {
+      "slug": "feature-dev",
+      "name": "Feature Developer",
+      "roleDefinition": "Focused on rapid development of new features.",
+      "groups": [
+        "read",
+        ["create", {
+          "fileRegex": "features/.*\\.(js|ts)$",
+          "description": "Create new JavaScript/TypeScript files within features directory"
+        }],
+        ["edit", {
+          "fileRegex": "features/.*\\.(js|ts)$",
+          "description": "Edit existing JavaScript/TypeScript files within features directory"
+        }]
+      ],
+      "availableTools": [
+        "terminal",
+        "file-system",
+        "database"
+      ],
+      "customInstructions": "Ensure all new features align with product goals and have corresponding tests."
+    }
+  ]
+}
+
+// File: .clinerules-feature-dev (Feature Developer Mode-specific Instructions)
+"Focus on modular, reusable code.
+Follow TDD practices rigorously.
+Update documentation alongside code changes."
+
+// File: project_auto_approve.json (Project-level Command Automation)
+{
+  "autoApproveCommands": [
+    "npm install",
+    "npm audit fix",
+    "docker-compose up"
+  ]
+}

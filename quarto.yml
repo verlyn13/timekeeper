@@ -1,0 +1,10 @@
+project:
+  type: website
+  output-dir: _build/site
+  render:
+    - "*.qmd"
+    - "docs/**/*.qmd"
+    - "!docs/_templates/"
+
+include-in-project:
+  - config/quarto/_quarto.yml

@@ -1,0 +1,251 @@
+---
+title: "Interactive Timekeeper Demo"
+subtitle: "Explore the AgentTemporal Framework in Action"
+format:
+  html:
+    code-fold: false
+    toc: true
+    toc-depth: 3
+    code-tools: true
+    output-file: interactive-demo.html
+jupyter: python3
+---
+
+# Interactive Timekeeper Demo
+
+This document provides an interactive demonstration of the Timekeeper framework. You can experiment with various components of the system, visualize temporal representations, and see how the mathematical constructs are realized in code.
+
+## Basic Temporal System
+
+Let's start by creating a basic temporal system and exploring its properties:
+
+```{python}
+import sys
+import os
+
+# Add the src directory to the path
+sys.path.append(os.path.abspath("../../src/python"))
+
+from agent_temporal import AgentTemporal
+from visualization import visualize_temporal_hierarchy, visualize_timepoint, visualize_conversions
+
+# Create a temporal system with default configuration
+temporal = AgentTemporal()
+
+# Display the system configuration
+print("Temporal System Configuration:")
+for i, unit in enumerate(temporal.units):
+    if i < len(temporal.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = temporal.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+```
+
+### Visualizing the Temporal Hierarchy
+
+We can visualize the hierarchical partitioning of time:
+
+```{python}
+# Visualize the temporal hierarchy
+fig, ax = visualize_temporal_hierarchy(temporal)
+```
+
+### Working with Timepoints
+
+Let's create and manipulate some timepoints:
+
+```{python}
+# Create a timepoint
+t1 = temporal.create_timepoint(epoch=2, cycle=15, step=30, microstep=500)
+print(f"Timepoint t1: {t1}")
+
+# Convert to base units
+base_units = temporal.to_base_units(t1)
+print(f"t1 in base units: {base_units} microsteps")
+
+# Convert back from base units
+t1_reconstructed = temporal.from_base_units(base_units)
+print(f"Reconstructed timepoint: {t1_reconstructed}")
+
+# Create another timepoint
+t2 = temporal.create_timepoint(epoch=1, cycle=20, step=45)
+print(f"Timepoint t2: {t2}")
+
+# Compare timepoints
+comparison = temporal.compare_timepoints(t1, t2)
+comparison_result = "t1 < t2" if comparison < 0 else "t1 > t2" if comparison > 0 else "t1 = t2"
+print(f"Comparison: {comparison_result}")
+
+# Add time
+t3 = temporal.add_time(t1, cycle=10, step=50)
+print(f"t1 + (10 cycles, 50 steps) = {t3}")
+
+# Subtract time
+t4 = temporal.subtract_time(t3, epoch=1, cycle=5)
+print(f"t3 - (1 epoch, 5 cycles) = {t4}")
+```
+
+### Visualizing a Timepoint
+
+Let's visualize how a timepoint is represented across the temporal hierarchy:
+
+```{python}
+# Visualize the timepoint
+fig, ax = visualize_timepoint(temporal, t1)
+```
+
+### Human Time Conversion
+
+The framework provides bidirectional morphisms between agent time and human time:
+
+```{python}
+# Convert to human time
+human_time = temporal.to_human_time(t1)
+print(f"Human time equivalent of t1: {human_time}")
+
+# Convert from human time
+human_dict = {"hours": 3, "minutes": 45, "seconds": 20}
+agent_time = temporal.from_human_time(human_dict)
+print(f"Agent time for {human_dict}: {agent_time}")
+```
+
+### Unit Conversion Factors
+
+The system maintains conversion factors between all pairs of temporal units:
+
+```{python}
+# Visualize conversion factors
+fig, ax = visualize_conversions(temporal)
+```
+
+## Task Scheduling
+
+The Timekeeper framework includes a task scheduler that respects dependencies and resource constraints:
+
+```{python}
+from task_scheduler import TaskScheduler
+from visualization import visualize_schedule
+
+# Create a scheduler
+scheduler = TaskScheduler(temporal)
+
+# Add some tasks
+scheduler.add_task("T1", {"step": 100})
+scheduler.add_task("T2", {"cycle": 2}, ["T1"])
+scheduler.add_task("T3", {"step": 500}, ["T2"])
+scheduler.add_task("T4", {"cycle": 1, "step": 30})
+scheduler.add_task("T5", {"epoch": 1}, ["T3", "T4"])
+
+# Schedule tasks
+scheduled_tasks = scheduler.schedule(agent_count=2)
+
+# Display the schedule
+print("\nTask Schedule:")
+for task in scheduled_tasks:
+    print(f"Task {task['id']}:")
+    print(f"  Start: {task['start']}")
+    print(f"  End:   {task['end']}")
+    print(f"  Agent: {task['agent']}")
+    human_start = temporal.to_human_time(task['start'])
+    human_end = temporal.to_human_time(task['end'])
+    print(f"  Human time: {human_start} to {human_end}")
+    print()
+
+# Visualize the schedule
+fig, ax = visualize_schedule(scheduler)
+```
+
+## Dynamic Adaptation
+
+The AdaptiveAgentTemporal class extends the basic system with dynamic adaptation capabilities:
+
+```{python}
+from adaptive_agent_temporal import AdaptiveAgentTemporal
+
+# Create an adaptive temporal system
+adaptive = AdaptiveAgentTemporal(agent_count=2)
+
+# Display initial configuration
+print("Initial Temporal System Configuration:")
+for i, unit in enumerate(adaptive.units):
+    if i < len(adaptive.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = adaptive.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+
+# Adjust a subdivision factor
+print("\nAdjusting subdivision factor for cycle from 60 to 30")
+adaptive.adjust_subdivision("cycle", 30)
+
+# Display updated configuration
+print("\nUpdated Temporal System Configuration:")
+for i, unit in enumerate(adaptive.units):
+    if i < len(adaptive.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = adaptive.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+
+# Add a new unit
+print("\nAdding a new 'megacycle' unit (1 megacycle = 4 cycles)")
+adaptive.add_time_unit("megacycle", 4, after_unit="epoch")
+
+# Display expanded configuration
+print("\nExpanded Temporal System Configuration:")
+for i, unit in enumerate(adaptive.units):
+    if i < len(adaptive.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = adaptive.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+
+# Visualize the new hierarchy
+fig, ax = visualize_temporal_hierarchy(adaptive)
+```
+
+### Adapting to Operation Patterns
+
+The adaptive system can track operations and adjust its structure accordingly:
+
+```{python}
+# Set a small adaptation threshold for demonstration
+adaptive.adaptation_threshold = 10
+
+# Create some timepoints
+t1 = adaptive.create_timepoint(epoch=1, megacycle=2, cycle=10, step=30)
+t2 = adaptive.create_timepoint(epoch=0, megacycle=3, cycle=5, step=45)
+
+# Perform operations concentrated on a particular unit
+print("Performing operations with heavy cycle usage...")
+for _ in range(15):
+    # Heavy usage of cycle operations
+    adaptive.add_time(t1, cycle=1)
+
+# Display operation counts
+print("\nOperation counts:")
+for op, count in adaptive.operations.items():
+    if count > 0:
+        print(f"  {op}: {count}")
+
+# Display updated configuration
+print("\nFinal Temporal System Configuration:")
+for i, unit in enumerate(adaptive.units):
+    if i < len(adaptive.units) - 1:  # Not the last unit
+        subdiv = unit["subdivisions"]
+        next_unit = adaptive.units[i+1]["name"]
+        print(f"1 {unit['name']} = {subdiv} {next_unit}s")
+    else:
+        print(f"{unit['name']} (base unit)")
+```
+
+## Conclusion
+
+This interactive demonstration shows how the Timekeeper framework implements the mathematical constructs defined in the formal specification. The system provides a flexible and adaptable approach to temporal representation and manipulation for small-scale agent systems.
+
+For more details on the mathematical foundations, see the [Math-to-Code Mapping](math-to-code.html) document.

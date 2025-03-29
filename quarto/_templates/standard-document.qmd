@@ -1,0 +1,88 @@
+---
+title: "Document Title"
+description: "Brief description of this document's content and purpose"
+date: "2025-03-28"
+author: "Author Name"
+
+# --- Classification System ---
+categories: [Concept, Implementation, Example, Research] # Choose appropriate categories
+tags: [timepoint, scheduling, adaptation, visualization] # Add relevant tags
+
+# --- Status & Lifecycle ---
+status: "Draft" # Options: Draft, Review, Stable, Experimental, Deprecated
+version: "0.1.0" # Semantic version of this document content
+
+# --- Audience & Scope ---
+audience: [Researchers, Developers, Users] # Target audience
+scope: "Overview" # Options: Overview, Internal Detail, Public API
+
+# --- Cross-References ---
+related-concepts: [] # List related concept pages
+related-implementation: [] # List related implementation pages
+related-examples: [] # List related example pages
+
+# --- Mathematics ---
+theorem-references: [] # List relevant theorems
+definition-references: [] # List relevant definitions
+
+# --- Custom Flags ---
+featured: false # Whether to feature this on landing pages
+needs-diagram: false # Whether a diagram should be added
+mathematical-level: "Basic" # Options: Basic, Intermediate, Advanced
+code-examples: true # Whether code examples are included
+---
+
+<!-- Document Preamble - Explain purpose and context -->
+
+This document covers...
+
+<!-- Status Badge - Auto-inserted based on metadata -->
+<div class="status-{{< meta status | lower >}}">
+<strong>Status:</strong> {{< meta status >}}
+
+{{#if status == "Experimental"}}
+<div class="callout-warning">
+This is an experimental feature and may change in future versions.
+</div>
+{{/if}}
+
+{{#if status == "Deprecated"}}
+<div class="callout-important">
+This feature is deprecated and will be removed in a future version.
+</div>
+{{/if}}
+</div>
+
+<!-- Audience Badges - Auto-inserted based on metadata -->
+<div class="audience-container">
+<strong>Audience:</strong>
+{{#each audience}}
+<span class="audience-badge audience-{{< meta audience | lower >}}">{{audience}}</span>
+{{/each}}
+</div>
+
+<!-- Main Content Sections -->
+
+## Overview
+
+Brief introduction to the content...
+
+## Section 1
+
+Content...
+
+## Section 2
+
+Content...
+
+## Related Resources
+
+<!-- Auto-generated from metadata -->
+See also:
+{{#each related-concepts}}
+- [{{title}}]({{path}})
+{{/each}}
+
+## References
+
+<!-- Citations and external references -->

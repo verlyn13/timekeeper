@@ -1,0 +1,83 @@
+---
+title: Implementation
+---
+
+# Timekeeper: Implementation
+
+This section documents the implementation of the Timekeeper theoretical concepts. Each component of the implementation directly corresponds to elements of the [Theoretical Foundation](../theory/index.qmd).
+
+## Core Components
+
+- [Agent Temporal System](agent_temporal.qmd): Implementation of temporal universe and operations (Definitions 1-8)
+- [Task Scheduler](task_scheduler.qmd): Implementation of temporal task scheduling (From Section 6)
+- [Adaptive System](adaptive_system.qmd): Implementation of adaptive temporal partitioning (Definition 21)
+
+## API Documentation
+
+The [API Reference](api/index.html) provides detailed documentation of all classes and methods, with references to the underlying theoretical definitions.
+
+## Module Structure
+
+The implementation is organized into the following core modules:
+
+### Core Temporal System
+
+```
+src/core/temporal/
+├── __init__.py
+├── universe.py         # Temporal universe (Definition 1)
+├── partition.py        # Hierarchical partition (Definition 2)
+├── timepoint.py        # Timepoint representation (Definition 6)
+└── operations.py       # Temporal operations (Axioms 2-3)
+```
+
+### Morphisms
+
+```
+src/core/morphisms/
+├── __init__.py
+├── human_agent.py      # Human-Agent morphisms (Definitions 16-19)
+└── converters.py       # Unit conversion utilities
+```
+
+### Lattice
+
+```
+src/core/lattice/
+├── __init__.py
+└── partition_lattice.py # Partition lattice (Definition 21)
+```
+
+### Scheduler
+
+```
+src/scheduler/
+├── __init__.py
+├── task.py             # Temporal task (Definition from Section 6)
+├── dependency_graph.py # Task dependency graph
+├── scheduler.py        # Temporal scheduler
+└── optimization.py     # Schedule optimization (Theorem on optimality)
+```
+
+### Adaptive System
+
+```
+src/adaptive/
+├── __init__.py
+├── adaptive_temporal.py    # Adaptive framework (Definition 21)
+├── coefficient_adjuster.py # Subdivision factor optimization
+└── reconfiguration.py      # Partition reconfiguration
+```
+
+## Mathematical Rigor
+
+The implementation maintains strict adherence to the mathematical definitions and axioms. Each class and method includes references to the theoretical foundations, enabling bidirectional traceability.
+
+## Development Guidelines
+
+When extending or modifying the implementation:
+
+1. **Theory First**: Any implementation changes should be preceded by mathematical validation.
+2. **Maintain Axioms**: Ensure that all implementations comply with the axioms defined in the theory.
+3. **Document References**: Include references to the theoretical foundation in docstrings.
+4. **Test Properties**: Create property-based tests that validate the mathematical properties.
