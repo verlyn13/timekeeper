@@ -304,4 +304,21 @@ The project needs a smooth and simple CI/CD process. While there's an existing w
 - Ensure both Sphinx and Quarto documentation builds are included
 - Add security scanning
 - Improve release process
+
+## Decision
+
+[2025-03-28 23:57:00] - Update Python version requirements for CI/CD
+
+## Rationale
+
+After encountering compatibility issues with matplotlib and other dependencies in earlier Python versions, the decision was made to require Python 3.11+ for the project. This simplifies dependency management and ensures compatibility with modern libraries.
+
+## Implementation Details
+
+- Updated pyproject.toml to require Python 3.11+
+- Updated matplotlib to ">=3.6.1,<3.11" (compatible with Python 3.11)
+- Updated NumPy to ">=2.0.0,<2.3.0" (current version is 2.2.4 for Python 3.11-3.13)
+- Modified GitHub CI workflow to test only Python 3.11 and 3.12
+- Updated all job steps to use Python 3.11
+- Updated black and mypy configurations for Python 3.11+
 - **Hierarchical Project Structure**: Clear separation between implementation, documentation, and research components.
