@@ -32,7 +32,7 @@ pip install --upgrade pip
 
 echo "--- Installing project dependencies (including dev/docs) from pyproject.toml ---"
 # This command assumes it's run from the repo root where pyproject.toml exists
-pip install .[dev,docs] # Or adjust based on actual extras_require keys
+pip install -e .[dev,docs] # Install in editable mode
 
 echo "--- [4/4] Verifying gcloud CLI ---"
 gcloud --version
