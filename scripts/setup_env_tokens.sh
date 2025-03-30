@@ -21,6 +21,9 @@ export PYPI_API_TOKEN="your_pypi_token_here"
 
 # Codecov Token for coverage reporting
 export CODECOV_TOKEN="your_codecov_token_here"
+
+# Google Cloud Platform credentials
+export GCP_CREDENTIALS_SOURCED=false
 EOF
     chmod 600 "$TOKENS_FILE"
     echo "Token file created with placeholder values. Please edit $TOKENS_FILE to add your actual tokens."
@@ -40,7 +43,14 @@ else
 function timekeeper-env() {
   if [ -f ~/.secrets/timekeeper/tokens.env ]; then
     source ~/.secrets/timekeeper/tokens.env
-    echo "Timekeeper environment variables loaded (PYPI_API_TOKEN, CODECOV_TOKEN)."
+    if [ "$GCP_CREDENTIALS_SOURCED" != "true" ] && [ -f ~/.secrets/google/gcp_env.sh ]; then
+      source ~/.secrets/google/gcp_env.sh
+      export GCP_CREDENTIALS_SOURCED=true
+      echo "Google Cloud Platform credentials loaded (GCP_HAPPYPATTERNS_SA_KEY_PATH)."
+    else
+      echo "Note: Google Cloud Platform credentials not found or already loaded."
+    fi
+    echo "Timekeeper environment variables loaded (PYPI_API_TOKEN, CODECOV_TOKEN, GCP variables)."
   else
     echo "Error: Timekeeper token file not found at ~/.secrets/timekeeper/tokens.env"
   fi

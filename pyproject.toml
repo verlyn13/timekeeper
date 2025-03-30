@@ -3,6 +3,7 @@ requires = ["hatchling>=1.24.2"]
 build-backend = "hatchling.build"
 
 [project]
+
 name = "timekeeper"
 version = "0.1.0"
 description = "A Hierarchical Partition-Based Approach to Temporal Optimization in Small-Scale Agent Systems"
@@ -10,8 +11,11 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE.md" }
 authors = [{ name = "verlyn13", email = "jeffreyverlynjohnson@gmail.com" }]
-dependencies = ["numpy>=2.0.0,<2.3.0", "matplotlib>=3.6.1,<3.11"]
-
+dependencies = [
+    "numpy>=2.0.0,<2.3.0",
+    "matplotlib>=3.6.1,<3.11",
+    "google-cloud-aiplatform>=1.47.0",
+]
 [project.optional-dependencies]
 dev = [
     "pytest>=8.1.1",
@@ -20,6 +24,7 @@ dev = [
     "isort>=5.13.2",
     "flake8>=7.0.0",
     "mypy>=1.9.0",
+    "hypothesis>=6.100.3", # Added hypothesis
 ]
 docs = [
     "jupyter>=1.0.0",
@@ -52,4 +57,28 @@ disallow_incomplete_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+
+# Add Hatch environment and script configuration
+[tool.hatch.envs.default]
+dependencies = [
+    "timekeeper[dev,docs]", # Install project with dev and docs extras
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests/}" # Define a 'test' script
+lint = [
+    "flake8 src/ tests/",
+    "isort --check-only src/ tests/",
+    "black --check src/ tests/",
+    "mypy src/ tests/",
+]
+format = ["isort src/ tests/", "black src/ tests/"]
+# Add other scripts if needed, mirroring Makefile?
+
+# Explicit test environment (optional, default usually includes dev)
+[tool.hatch.envs.test]
+dependencies = [
+    "timekeeper[dev]", # Only dev dependencies needed for testing
+]
+
 addopts = "--cov=src"

@@ -321,4 +321,125 @@ After encountering compatibility issues with matplotlib and other dependencies i
 - Modified GitHub CI workflow to test only Python 3.11 and 3.12
 - Updated all job steps to use Python 3.11
 - Updated black and mypy configurations for Python 3.11+
-- **Hierarchical Project Structure**: Clear separation between implementation, documentation, and research components.
+
+## Decision
+
+[2025-03-29 12:42:00] - Phase 2 Implementation Approach and Documentation Strategy
+
+## Rationale
+
+After reviewing the project status, it became clear that all core implementation components are complete, but integration tests, enhanced docstrings, and examples are needed to create a cohesive MVP. To ensure efficient and effective completion of Phase 2, a structured implementation approach is needed along with a strategy to maintain high-quality, non-duplicative documentation.
+
+## Implementation Details
+
+1. **Phase 2 Implementation Plan**: Created a comprehensive plan with three main priorities:
+
+   - **Integration Tests**: Starting with task scheduler integration tests, followed by workflow integration tests and visualization integration tests to ensure all components work together correctly.
+   - **Docstring Enhancement**: Beginning with the core agent_temporal.py file, adding LaTeX mathematical formulations and explicit cross-references to theory documentation.
+   - **Example Suite Development**: Creating a complete workflow example followed by specialized examples for specific use cases.
+
+2. **Documentation Deduplication Strategy**: Established principles to avoid redundancy across documentation:
+
+   - **Single Source of Truth**: Each concept should be defined in exactly one location.
+   - **Cross-References Over Duplication**: Use explicit cross-references instead of copying information.
+   - **Referencing Hierarchy**: Information should flow from theory to implementation to API to examples.
+   - **Bidirectional Traceability**: Maintain links between theory, implementation, and examples in both directions.
+
+3. **Implementation Priority Order**:
+
+   1. Integration tests (highest priority)
+   2. Docstring enhancement with LaTeX formulations
+   3. Example suite development
+
+This approach ensures we're focusing first on verifying that all components work together correctly, then improving the documentation to provide bidirectional traceability, and finally demonstrating the framework's capabilities through comprehensive examples.
+
+## Decision
+
+[2025-03-29 12:44:00] - Standardization of LaTeX in Documentation
+
+## Rationale
+
+Mathematical notation is central to the Timekeeper project, and LaTeX is used across theory documentation, implementation docstrings, and examples. To ensure consistency and maintainability, standardized LaTeX usage is needed across all project components. This will facilitate clear bidirectional traceability between theory and implementation while ensuring that all mathematical concepts are presented uniformly.
+
+## Implementation Details
+
+1. **LaTeX Style Guide**: Created a comprehensive LaTeX style guide (`docs/implementation/latex_style_guide.md`) that defines:
+
+   - **Standard Notation**: Consistent symbols for temporal concepts, scheduling concepts, and adaptive concepts
+   - **LaTeX Delimiters**: Guidelines for inline math (`$...$`) vs. display math (`\begin{align}...\end{align}`)
+   - **Required Commands**: Standard LaTeX commands to be used across all documentation
+   - **Integration Practices**: How to reference mathematical concepts across different documentation types
+
+2. **Standardized Concepts**:
+
+   - **Temporal Concepts**: Timepoints as $t$, Temporal Universe as $T$, etc.
+   - **Scheduling Concepts**: Tasks as $\tau$, durations as $d$, etc.
+   - **Adaptive Concepts**: Adaptation functions as $A(T, f)$, workload as $W$, etc.
+
+3. **Documentation System Integration**:
+
+   - Guidelines for LaTeX in Python docstrings, noting backslash escaping requirements
+   - Guidelines for LaTeX in Sphinx RST files using `:math:` role and `.. math::` directive
+   - Guidelines for LaTeX in Quarto markdown using standard `$` and `$$` delimiters
+   - Testing procedures to verify correct rendering in all documentation systems
+
+This standardization ensures that all mathematical content maintains consistent notation across the project, simplifying maintenance and improving readability. It also helps address the need for bidirectional traceability by ensuring that the same mathematical notation is used in both theory documentation and implementation docstrings.
+
+## Decision
+
+[2025-03-29 14:45:00] - Integration of Google Cloud Platform (GCP) Credentials for Vertex AI API
+
+## Rationale
+
+The project requires access to Google's Vertex AI API for AI-powered functionality. To enable this integration, we need to properly source and manage the GCP service account credentials in a secure manner that follows best practices for sensitive credential management.
+
+## Implementation Details
+
+1. **Credential Source**:
+
+   - Credentials will be sourced from `~/.secrets/google/gcp_env.sh`
+   - This script contains the environment variable `GCP_HAPPYPATTERNS_SA_KEY_PATH` which points to the API key file
+
+2. **Environment Integration**:
+
+   - Updated `.env.example` to document the GCP credential requirements
+   - Modified `scripts/setup_env_tokens.sh` to source the GCP credentials script
+   - Extended the `timekeeper-env` function to load GCP credentials
+
+3. **Security Considerations**:
+
+   - Credentials are never stored in the repository
+   - Added credential verification to prevent accidental exposure
+   - All credential files maintain strict permissions (600)
+
+4. **Documentation**:
+   - Created `memory-bank/gcp-credentials-integration.md` with detailed integration instructions
+   - Added notes for developers on credential setup requirements
+
+## [2025-03-29 21:24:00] - GCP Authentication Strategy & IAM Refinement
+
+- **Decision:** Adopt a dual authentication strategy for Google Cloud Platform:
+  - **Local Development:** Use Application Default Credentials (ADC) via user authentication (`gcloud auth application-default login`). This leverages the developer's own identity and permissions.
+  - **CI/CD (GitHub Actions):** Use the dedicated service account (`happypatterns@...`) key file, sourced securely (e.g., GitHub Secrets) and exposed via the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
+- **Decision:** Refine IAM roles for the `happypatterns@...` service account to adhere to the principle of least privilege. Redundant viewer roles and unnecessary `storage.objectAdmin` role were removed, leaving `roles/aiplatform.user`, `roles/aiplatform.serviceAgent`, and `roles/compute.serviceAgent`.
+- **Rationale:** This approach enhances security for local development by using user credentials and avoids distributing service account keys unnecessarily. It maintains a standard, secure method for automated environments. IAM refinement reduces the potential impact of service account compromise.
+- **Implementation Details:** `gcloud` CLI installed locally without admin rights. `gcloud auth login` and `gcloud auth application-default login` executed successfully. IAM roles adjusted via `gcloud projects remove-iam-policy-binding`. See `docs/reference/gcp-consultant-recommendation.md` for full details.
+
+## [2025-03-30 11:43:00] - Decision to Implement Vertex AI Workbench Integration
+
+### Decision
+
+Create and execute a detailed implementation plan for integrating Google Cloud Vertex AI Workbench as a primary interactive development and research environment for the Timekeeper project.
+
+### Rationale
+
+Leveraging Vertex AI Workbench aligns with the project's GCP strategy, provides a scalable and managed environment, supports interactive research needs, and integrates well with existing GCP services (like Vertex AI models). A detailed plan ensures consistent implementation aligned with Timekeeper's architectural patterns.
+
+### Implementation Details
+
+- A detailed, phased plan has been created: `docs/implementation/vertex-ai-workbench-integration-plan.md`.
+- The plan covers GCP foundation verification, instance provisioning, environment scripting, workflow validation (code, test, docs), and documentation/onboarding.
+- It emphasizes maintaining existing project standards (math-first, docstrings, traceability, security) within the Workbench environment.
+- It utilizes the established dual authentication strategy (User ADC for UI access, dedicated Service Account for instance execution).
+
+* **Hierarchical Project Structure**: Clear separation between implementation, documentation, and research components.

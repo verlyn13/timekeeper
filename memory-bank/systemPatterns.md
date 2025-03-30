@@ -121,4 +121,54 @@ It is optional, but recommended to be updated as the project evolves.
 - **Visual Learning Pattern**: Include diagrams, visualizations, and animations to explain complex concepts
 
 - **Cross-Reference Network**: Create a dense network of cross-references between related concepts and implementations
-- **Integration Testing**: Tests for consistency between components
+
+## 2025-03-29 12:43:00 - Phase 2 Implementation Patterns
+
+### Testing Patterns
+
+- **Component Integration Testing**: Tests verify interactions between components (e.g., TaskScheduler + AgentTemporal) rather than just individual components in isolation
+
+- **Complete Workflow Testing**: Tests simulate end-to-end user workflows spanning multiple components to verify system cohesion
+
+- **Hypothesis-Based Testing**: Property-based tests verify mathematical hypotheses about temporal operations
+
+- **Multi-Agent Verification**: Tests explicitly verify correct behavior across multiple agent configurations
+
+- **Adaptation Testing**: Specific tests verify system behavior before and after temporal adaptation
+
+### Documentation Patterns
+
+- **Docstring-Theory Linkage**: Docstrings reference theoretical foundations using explicit cross-links
+
+- **LaTeX Mathematical Formulations**: Mathematical concepts are expressed in LaTeX notation within docstrings
+
+- **Documentation Deduplication**: Information is defined in exactly one place with cross-references used instead of duplication
+
+- **Hierarchical Information Flow**: Information flows from theory to implementation to API to examples
+
+- **Bidirectional Traceability**: Navigation paths exist both from theory to implementation and from implementation back to theory
+
+### Implementation Patterns
+
+- **Integration-First Focus**: Development focuses on integration points between components first, then refines individual components
+
+- **Example-Driven Enhancement**: API enhancements are driven by needs identified in comprehensive examples
+
+- **Workflow-Oriented Design**: System components are designed to be composed into complete workflows
+
+- **Cross-Component Visualization**: Visualization components can represent data from multiple system components simultaneously
+
+## Architectural Patterns
+
+- [2025-03-29 21:26:00] - **GCP Authentication Strategy:** Adopted a dual approach:
+  - **Local Development:** Application Default Credentials (ADC) via authenticated user (`gcloud auth application-default login`).
+  - **CI/CD / Automated:** Service Account key file (`GOOGLE_APPLICATION_CREDENTIALS` environment variable).
+  - **Rationale:** Balances local development security/convenience with standard practices for automated environments. See `docs/reference/gcp-consultant-recommendation.md`.
+
+## [2025-03-30 11:44:00] - Development Environment Patterns
+
+### Architectural Patterns
+
+- **Vertex AI Workbench Integration:** Utilized as the primary managed environment for interactive development, research, testing, and documentation building, leveraging integrated GCP authentication (User ADC for UI, Service Account for instance execution) and scalability features. (Ref: `docs/implementation/vertex-ai-workbench-integration-plan.md`)
+
+* **Integration Testing**: Tests for consistency between components

@@ -321,6 +321,8 @@ Task scheduling can benefit from adaptive temporal systems, which can optimize t
 
 ## Implementation Notes
 
+**Verification**: The implementation concepts described above are verified through integration tests located in `tests/integration/test_task_scheduler_integration.py`. These tests ensure the scheduler correctly interacts with the temporal systems (`AgentTemporal`, `AdaptiveAgentTemporal`) and handles dependencies and multi-agent scenarios as expected.
+
 The implementation of task scheduling in the `TaskScheduler` class focuses on practical scheduling capabilities:
 
 1. **Dependency Management**: The implementation carefully handles task dependencies to ensure that tasks are only scheduled after their dependencies are completed.

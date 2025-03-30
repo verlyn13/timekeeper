@@ -68,6 +68,16 @@ class TaskScheduler:
 - Multiple scheduling algorithms for different use cases
 - Optimization for small-scale agent systems (1-3 agents)
 
+## Testing
+
+Integration tests for the Task Scheduler are implemented in `tests/integration/test_task_scheduler_integration.py`. These tests verify the correct interaction between the `TaskScheduler` and the core temporal systems (`AgentTemporal` and `AdaptiveAgentTemporal`), including:
+
+- Basic scheduling and temporal ordering.
+- Handling of task dependencies.
+- Multi-agent scheduling scenarios.
+- Scheduling behavior after temporal adaptation.
+- Preservation of temporal ordering properties (using Hypothesis).
+
 ## Usage Examples
 
 _This section should include code examples showing how to use the TaskScheduler class for common scenarios._
