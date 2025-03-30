@@ -3,7 +3,7 @@ set -e # Exit immediately if a command exits with a non-zero status.
 
 echo "--- Updating package list and installing OS dependencies ---"
 sudo apt-get update
-sudo apt-get install -y python3.11 python3.11-venv make pandoc git
+sudo apt-get install -y python3.11 python3-venv make pandoc git
 
 echo "--- Verifying Python version ---"
 python3.11 --version
