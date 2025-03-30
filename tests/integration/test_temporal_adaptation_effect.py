@@ -3,7 +3,7 @@ Fixed version of the temporal adaptation test.
 """
 
 
-def test_temporal_adaptation_effect(self, adaptive_scheduler, adaptive_temporal):
+def test_temporal_adaptation_effect(adaptive_scheduler, adaptive_temporal):
     """Test that adapting temporal granularity affects scheduling consistently across all agents."""
     scheduler = adaptive_scheduler
     temporal = scheduler.temporal
