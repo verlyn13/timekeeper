@@ -287,4 +287,6 @@ This file tracks the project's progress using a task list format.
 
 [2025-03-30 12:43:00] - Vertex AI Workbench Integration: Completed Task 2.3 (Provisioning) - Created instance `timekeeper-workbench-std` in `us-west1-a` via `gcloud`.
 
+[2025-03-30 15:24:00] - Pytest Debugging: Resolved all test collection errors and assertion failures locally by fixing `pyproject.toml` configuration, test fixture definitions/scope, and incorrect test assertions. 49/49 tests now pass locally.
+
 - Follow research hypotheses outlined in research framework

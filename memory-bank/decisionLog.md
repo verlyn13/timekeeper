@@ -442,4 +442,7 @@ Leveraging Vertex AI Workbench aligns with the project's GCP strategy, provides 
 - It emphasizes maintaining existing project standards (math-first, docstrings, traceability, security) within the Workbench environment.
 - It utilizes the established dual authentication strategy (User ADC for UI access, dedicated Service Account for instance execution).
 
-* **Hierarchical Project Structure**: Clear separation between implementation, documentation, and research components.
+[2025-03-30 15:24:00] - Pytest Configuration: Decided to use `pythonpath = ["."]` in `pyproject.toml`'s `[tool.pytest.ini_options]` section to resolve `ModuleNotFoundError` for `src`-layout project, instead of relying solely on editable install or `PYTHONPATH` environment variable. This provides a more robust configuration managed within the project.
+[2025-03-30 15:24:00] - Pytest Fixture Scope: Changed `standard_temporal` fixture scope from `function` to `module` in `tests/integration/test_time_flow.py` to resolve Hypothesis health check warnings regarding fixture reuse within `@given` examples, as the fixture appeared stateless.
+
+- **Hierarchical Project Structure**: Clear separation between implementation, documentation, and research components.

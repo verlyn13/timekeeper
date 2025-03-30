@@ -8,7 +8,7 @@ timepoints, and operations on them.
 
 
 class AgentTemporal:
-    """
+    r"""
     A comprehensive implementation of a hierarchical temporal system for agents.
 
     Mathematical Foundation:
@@ -55,7 +55,7 @@ class AgentTemporal:
     """
 
     def __init__(self, unit_config=None):
-        """
+        r"""
         Initialize a new temporal universe with the specified hierarchy of time units.
 
         Mathematical Definition:
@@ -132,7 +132,7 @@ class AgentTemporal:
         self._compute_conversions()
 
     def _compute_conversions(self):
-        """
+        r"""
         Compute conversion factors between all pairs of time units.
         
         Mathematical Definition:
@@ -200,7 +200,7 @@ class AgentTemporal:
                 self.conversion_factors[(uA["name"], uB["name"])] = factor
 
     def create_timepoint(self, **kwargs):
-        """
+        r"""
         Create a timepoint with specified unit values.
 
         Mathematical Definition:
@@ -257,7 +257,7 @@ class AgentTemporal:
         return self.normalize(tp)
 
     def normalize(self, timepoint):
-        """
+        r"""
         Normalize a timepoint to its canonical form.
 
         Mathematical Definition:
@@ -309,7 +309,7 @@ class AgentTemporal:
         return self.from_base_units(total_base)
 
     def to_base_units(self, timepoint):
-        """
+        r"""
         Convert a timepoint to its absolute representation in base units.
 
         Mathematical Definition:
@@ -362,7 +362,7 @@ class AgentTemporal:
         return total
 
     def from_base_units(self, base_value):
-        """
+        r"""
         Convert an absolute base unit value to a timepoint.
 
         Mathematical Definition:
@@ -426,7 +426,7 @@ class AgentTemporal:
         return result
 
     def add_time(self, tp, **kwargs):
-        """
+        r"""
         Add time to a timepoint.
 
         Mathematical Definition:
@@ -484,7 +484,7 @@ class AgentTemporal:
         return self.from_base_units(summed)
 
     def subtract_time(self, tp, **kwargs):
-        """
+        r"""
         Subtract time from a timepoint.
 
         Mathematical Definition:
@@ -546,7 +546,7 @@ class AgentTemporal:
         return self.from_base_units(result)
 
     def compare_timepoints(self, t1, t2):
-        """
+        r"""
         Compare two timepoints.
 
         Mathematical Definition:
@@ -600,7 +600,7 @@ class AgentTemporal:
             return 0
 
     def time_difference(self, t1, t2):
-        """
+        r"""
         Calculate the absolute time difference between two timepoints.
 
         Mathematical Definition:
@@ -654,7 +654,7 @@ class AgentTemporal:
     # We'll do a simple version here:
 
     def from_human_time(self, human_dict):
-        """
+        r"""
         Convert human time to agent time.
 
         Mathematical Definition:
@@ -715,7 +715,7 @@ class AgentTemporal:
         return self.normalize(agent_tp)
 
     def to_human_time(self, agent_tp):
-        """
+        r"""
         Convert agent time to human time.
 
         Mathematical Definition:

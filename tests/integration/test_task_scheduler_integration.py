@@ -10,9 +10,9 @@ import numpy as np
 from hypothesis import given, strategies as st
 from typing import Any, Dict, List
 
-from python.agent_temporal import AgentTemporal
-from python.adaptive_agent_temporal import AdaptiveAgentTemporal
-from python.task_scheduler import TaskScheduler
+from src.python.agent_temporal import AgentTemporal
+from src.python.adaptive_agent_temporal import AdaptiveAgentTemporal
+from src.python.task_scheduler import TaskScheduler
 
 
 @pytest.fixture

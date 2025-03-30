@@ -57,6 +57,7 @@ disallow_incomplete_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
+pythonpath = ["."]         # Add project root to allow finding 'src'
 
 # Add Hatch environment and script configuration
 [tool.hatch.envs.default]
