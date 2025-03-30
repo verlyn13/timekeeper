@@ -1,34 +1,40 @@
 #!/bin/bash
-set -e # Exit immediately if a command exits with a non-zero status.
+set -e                                # Exit immediately if a command exits with a non-zero status.
+export DEBIAN_FRONTEND=noninteractive # Prevent interactive prompts during apt installs
 
-echo "--- Updating package list and installing OS dependencies ---"
+echo "--- [1/4] Updating package list and installing OS dependencies ---"
 sudo apt-get update
-sudo apt-get install -y python3.11 python3-venv make pandoc git
+# Ensure python3.11, venv, make, pandoc, and git are installed
+sudo apt-get install -y --no-install-recommends \
+    python3.11 \
+    python3-venv \
+    make \
+    pandoc \
+    git
 
-echo "--- Verifying Python version ---"
+echo "--- [2/4] Verifying Python 3.11 ---"
 python3.11 --version
-echo "--- Creating Python virtual environment '.venv' ---"
+
+echo "--- [3/4] Creating Python virtual environment '.venv' using Python 3.11 ---"
+# Ensure this script is run from the repository root directory
+if [ ! -f "pyproject.toml" ]; then
+    echo "ERROR: This script must be run from the repository root directory (containing pyproject.toml)."
+    exit 1
+fi
 python3.11 -m venv .venv
+echo "Created .venv using $(python3.11 --version)"
 
 echo "--- Activating virtual environment ---"
-# Note: Activation within the script only affects the script's execution context.
-# The user needs to run 'source .venv/bin/activate' manually in their terminal.
 source .venv/bin/activate
 
 echo "--- Upgrading pip ---"
 pip install --upgrade pip
 
 echo "--- Installing project dependencies (including dev/docs) from pyproject.toml ---"
-# Assuming dev/docs dependencies are specified correctly in pyproject.toml
-# Adjust if using requirements files (e.g., pip install -r requirements.txt -r requirements-dev.txt)
+# This command assumes it's run from the repo root where pyproject.toml exists
 pip install .[dev,docs] # Or adjust based on actual extras_require keys
 
-# If docs tools aren't in pyproject.toml extras:
-# echo "--- Installing documentation tools ---"
-# pip install sphinx quartodoc <specific versions if needed>
-
-echo "--- Verifying gcloud CLI ---"
-# This assumes gcloud is pre-installed on the Vertex AI Workbench image
+echo "--- [4/4] Verifying gcloud CLI ---"
 gcloud --version
 
 echo "--- Environment setup complete! ---"
