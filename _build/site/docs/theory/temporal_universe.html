@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Universe - Timekeeper</title>
+    <link rel="stylesheet" href="../../docs/implementation/api/_static/basic.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #212121;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #1565c0;
+        }
+        a {
+            color: #1565c0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .math-definition {
+            background-color: rgba(21, 101, 192, 0.1);
+            border-left: 3px solid #1565c0;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .math-title {
+            font-weight: bold;
+            color: #1565c0;
+            margin-bottom: 0.5rem;
+        }
+        .nav-link {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 2rem">
+        <a href="../../" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link">Theory</a>
+        <a href="../implementation/index.html" class="nav-link">Implementation</a>
+        <a href="../research/index.html" class="nav-link">Research</a>
+        <a href="../implementation/api/index.html" class="nav-link">API Reference</a>
+    </div>
+
+    <h1>Temporal Universe</h1>
+    
+    <div class="math-definition">
+        <div class="math-title">Definition 1: Temporal Universe</div>
+        <p>A temporal universe is defined as a pair $(T, <)$ where:</p>
+        <ul>
+            <li>$T$ is a set of timepoints</li>
+            <li>$<$ is a strict total ordering on $T$</li>
+        </ul>
+        <p>This ordering satisfies the following properties for all $t_1, t_2, t_3 \in T$:</p>
+        <ul>
+            <li>Irreflexivity: $\neg(t_1 < t_1)$</li>
+            <li>Transitivity: If $t_1 < t_2$ and $t_2 < t_3$, then $t_1 < t_3$</li>
+            <li>Trichotomy: Exactly one of the following holds: $t_1 < t_2$, $t_2 < t_1$, or $t_1 = t_2$</li>
+        </ul>
+    </div>
+
+    <h2>Mathematical Foundation</h2>
+    <p>The temporal universe forms the foundational structure for all temporal operations in the framework. It provides a linear, ordered representation of time that serves as the basis for hierarchical partitioning and temporal operations.</p>
+    
+    <h3>Key Properties</h3>
+    <ul>
+        <li><strong>Linearity</strong>: Time is represented as a linear sequence, maintaining a strict ordering between any two distinct timepoints.</li>
+        <li><strong>Continuity</strong>: The temporal universe can be viewed as continuous, though our representation focuses on discrete timepoints.</li>
+        <li><strong>Foundational Role</strong>: All other temporal constructs (partitions, operations, morphisms) are built upon this base structure.</li>
+    </ul>
+
+    <h2>Related Definitions</h2>
+    <ul>
+        <li><a href="hierarchical_partition.html">Hierarchical Partition (Definition 2)</a>: Partitions the temporal universe into a hierarchical structure.</li>
+        <li><a href="timepoint_operations.html">Timepoint Operations (Definitions 6-8)</a>: Operations defined on timepoints within the temporal universe.</li>
+    </ul>
+
+    <h2>Implementation</h2>
+    
+    <p>The temporal universe is implemented in the <code>TemporalUniverse</code> class from the <code>core.temporal.universe</code> module:</p>
+    
+    <pre class="code-block">class TemporalUniverse:
+    """
+    Implementation of a Temporal Universe as defined in the formal theory.
+    
+    A Temporal Universe is a mathematical structure consisting of a set of time points
+    with a strict total ordering relation, representing the fundamental temporal domain
+    for agent operations.
+    """</pre>
+    
+    <p>See the <a href="../implementation/api/core.temporal.universe.html">API documentation for TemporalUniverse</a> for full implementation details.</p>
+
+    <h2>Usage in the Framework</h2>
+    <p>The temporal universe concept is used throughout the framework in the following ways:</p>
+    <ul>
+        <li>As the foundation for all temporal operations</li>
+        <li>As the domain for hierarchical temporal partitions</li>
+        <li>As the base for defining morphisms between different time domains</li>
+        <li>As the underlying structure for the scheduler</li>
+    </ul>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; text-align: center; color: #757575;">
+        <p>Timekeeper Framework — Mathematical Temporal Dynamics for Agent Systems</p>
+    </footer>
+</body>
+</html>

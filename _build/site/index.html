@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timekeeper Documentation</title>
+    <link rel="stylesheet" href="docs/implementation/api/_static/basic.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #212121;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #1565c0;
+        }
+        .hero {
+            padding: 3rem 0;
+            background: linear-gradient(120deg, #1565c0, #0d47a1);
+            color: white;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .hero-content {
+            padding: 0 2rem;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .warning {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .section {
+            margin-bottom: 3rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            background-color: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1565c0;
+        }
+        a {
+            color: #1565c0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1565c0;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #0d47a1;
+            text-decoration: none;
+        }
+        .btn.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        .btn.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Timekeeper Documentation</h1>
+            <p>A Mathematical Framework for Temporal Dynamics in Agent Systems</p>
+            <div>
+                <a href="docs/theory/index.html" class="btn">Theory Documentation</a>
+                <a href="docs/implementation/api/index.html" class="btn secondary">API Reference</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>About Timekeeper</h2>
+        <p>
+            Timekeeper is a comprehensive framework for optimizing temporal dynamics in small-scale agent systems. 
+            It provides a mathematically rigorous approach to handling time in agent systems, with a focus on 
+            hierarchical temporal partitioning, timepoint operations, and human-agent time mapping.
+        </p>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📐</div>
+                <h3>Mathematical Foundation</h3>
+                <p>Built on a formal theoretical framework for temporal structures</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⏱️</div>
+                <h3>Hierarchical Time</h3>
+                <p>Nested temporal partitions with well-defined mathematical properties</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <h3>Adaptability</h3>
+                <p>Dynamic adjustment of temporal granularity based on context</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Documentation Components</h2>
+        
+        <div class="card">
+            <h3>Theory Documentation</h3>
+            <p>Formal mathematical foundation of the Timekeeper framework, including definitions, axioms, and theorems.</p>
+            <p><a href="docs/theory/index.html">Browse Theory Documentation →</a></p>
+        </div>
+        
+        <div class="card">
+            <h3>Implementation Documentation</h3>
+            <p>Implementation details and usage guidelines for the Timekeeper components.</p>
+            <p><a href="docs/implementation/index.html">Browse Implementation Documentation →</a></p>
+        </div>
+        
+        <div class="card">
+            <h3>API Reference</h3>
+            <p>Detailed API documentation generated from source code, with references to the theoretical foundation.</p>
+            <p><a href="docs/implementation/api/index.html">Browse API Reference →</a></p>
+        </div>
+        
+        <div class="card">
+            <h3>Research Components</h3>
+            <p>Research hypotheses, experiments, and results related to the Timekeeper framework.</p>
+            <p><a href="docs/research/index.html">Browse Research Documentation →</a></p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>Core Modules</h2>
+        <ul>
+            <li><a href="docs/implementation/api/modules/temporal.html">Temporal Module</a> - Core temporal universe and operations</li>
+            <li><a href="docs/implementation/api/modules/morphisms.html">Morphisms Module</a> - Mappings between different time domains</li>
+            <li><a href="docs/implementation/api/modules/scheduler.html">Scheduler Module</a> - Task scheduling with temporal constraints</li>
+            <li><a href="docs/implementation/api/modules/adaptive.html">Adaptive Module</a> - Dynamic adaptation of temporal structures</li>
+        </ul>
+    </div>
+    
+    <div class="warning">
+        <strong>Note:</strong> This documentation site is generated using a combination of Sphinx for API documentation and 
+        Quarto for conceptual documentation. For the best experience, ensure both tools are installed when building the documentation.
+    </div>
+    
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; text-align: center; color: #757575;">
+        <p>Timekeeper Framework — Mathematical Temporal Dynamics for Agent Systems</p>
+    </footer>
+</body>
+</html>

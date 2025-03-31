@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation - Timekeeper</title>
+    <link rel="stylesheet" href="../../docs/implementation/api/_static/basic.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #212121;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #1565c0;
+        }
+        a {
+            color: #1565c0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+        }
+        .nav-link {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 2rem">
+        <a href="../../" class="nav-link">Home</a>
+        <a href="../theory/index.html" class="nav-link">Theory</a>
+        <a href="../research/index.html" class="nav-link">Research</a>
+        <a href="api/index.html" class="nav-link">API Reference</a>
+    </div>
+
+    <h1>Timekeeper: Implementation</h1>
+    <p>This section documents the implementation of the Timekeeper theoretical concepts. Each component of the implementation directly corresponds to elements of the <a href="../theory/index.html">Theoretical Foundation</a>.</p>
+
+    <h2>Core Components</h2>
+    <ul>
+        <li><a href="agent_temporal.html">Agent Temporal System</a>: Implementation of temporal universe and operations (Definitions 1-8)</li>
+        <li><a href="task_scheduler.html">Task Scheduler</a>: Implementation of temporal task scheduling (From Section 6)</li>
+        <li><a href="adaptive_system.html">Adaptive System</a>: Implementation of adaptive temporal partitioning (Definition 21)</li>
+    </ul>
+
+    <h2>API Documentation</h2>
+    <p>The <a href="api/index.html">API Reference</a> provides detailed documentation of all classes and methods, with references to the underlying theoretical definitions.</p>
+
+    <h2>Module Structure</h2>
+    <p>The implementation is organized into the following core modules:</p>
+
+    <h3>Core Temporal System</h3>
+    <pre class="code-block">src/core/temporal/
+├── __init__.py
+├── universe.py         # Temporal universe (Definition 1)
+├── partition.py        # Hierarchical partition (Definition 2)
+├── timepoint.py        # Timepoint representation (Definition 6)
+└── operations.py       # Temporal operations (Axioms 2-3)</pre>
+
+    <h3>Morphisms</h3>
+    <pre class="code-block">src/core/morphisms/
+├── __init__.py
+├── human_agent.py      # Human-Agent morphisms (Definitions 16-19)
+└── converters.py       # Unit conversion utilities</pre>
+
+    <h3>Lattice</h3>
+    <pre class="code-block">src/core/lattice/
+├── __init__.py
+└── partition_lattice.py # Partition lattice (Definition 21)</pre>
+
+    <h3>Scheduler</h3>
+    <pre class="code-block">src/scheduler/
+├── __init__.py
+├── task.py             # Temporal task (Definition from Section 6)
+├── dependency_graph.py # Task dependency graph
+├── scheduler.py        # Temporal scheduler
+└── optimization.py     # Schedule optimization (Theorem on optimality)</pre>
+
+    <h3>Adaptive System</h3>
+    <pre class="code-block">src/adaptive/
+├── __init__.py
+├── adaptive_temporal.py    # Adaptive framework (Definition 21)
+├── coefficient_adjuster.py # Subdivision factor optimization
+└── reconfiguration.py      # Partition reconfiguration</pre>
+
+    <h2>Mathematical Rigor</h2>
+    <p>The implementation maintains strict adherence to the mathematical definitions and axioms. Each class and method includes references to the theoretical foundations, enabling bidirectional traceability.</p>
+
+    <h2>Development Guidelines</h2>
+    <p>When extending or modifying the implementation:</p>
+    <ol>
+        <li><strong>Theory First</strong>: Any implementation changes should be preceded by mathematical validation.</li>
+        <li><strong>Maintain Axioms</strong>: Ensure that all implementations comply with the axioms defined in the theory.</li>
+        <li><strong>Document References</strong>: Include references to the theoretical foundation in docstrings.</li>
+        <li><strong>Test Properties</strong>: Create property-based tests that validate the mathematical properties.</li>
+    </ol>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; text-align: center; color: #757575;">
+        <p>Timekeeper Framework — Mathematical Temporal Dynamics for Agent Systems</p>
+    </footer>
+</body>
+</html>
