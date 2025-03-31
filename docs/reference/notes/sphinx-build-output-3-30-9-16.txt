@@ -1,0 +1,624 @@
+➜  timekeeper git:(main) gcloud compute ssh --project=timekeeper-455221 --zone=us-west1-a timekeeper-workbench-std --command="cd ~/timekeeper && source .venv/bin/activate && make -C config/sphinx html"
+Existing host keys found in /home/verlyn13/.ssh/google_compute_known_hosts
+make: Entering directory '/home/verlyn13/timekeeper/config/sphinx'
+Running Sphinx v8.2.3
+loading translations [en]... done
+loading pickled environment... failed: No module named 'pathlib._local'; 'pathlib' is not a package
+done
+loading intersphinx inventory 'theory' from ../../_build/theory/objects.inv ...
+WARNING: failed to reach any of the inventories with the following issues:
+intersphinx inventory '../../_build/theory/objects.inv' not readable due to FileNotFoundError: [Errno 2] No such file or directory: '/home/verlyn13/timekeeper/config/sphinx/../../_build/theory/objects.inv'
+building [mo]: targets for 0 po files that are out of date
+writing output... 
+building [html]: template variant-selector.html has been changed since the previous build, all docs will be rebuilt
+building [html]: targets for 5 source files that are out of date
+updating environment: [new config] 5 added, 0 changed, 0 removed
+reading sources... [ 20%] index
+reading sources... [ 40%] modules/adaptive
+reading sources... [ 60%] modules/morphisms
+reading sources... [ 80%] modules/scheduler
+reading sources... [100%] modules/temporal
+
+/home/verlyn13/timekeeper/config/sphinx/index.rst:10: WARNING: Title underline too short.
+
+Core Modules
+----------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/index.rst:22: WARNING: Title underline too short.
+
+Theoretical Foundation
+------------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/index.rst:22: WARNING: Title underline too short.
+
+Theoretical Foundation
+------------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/index.rst:31: WARNING: Title underline too short.
+
+Indices and tables
+----------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/index.rst:31: WARNING: Title underline too short.
+
+Indices and tables
+----------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/adaptive.rst:2: WARNING: Title underline too short.
+
+Adaptive Module
+============== [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/adaptive.rst:13: WARNING: Title underline too short.
+
+Coefficient Adjuster
+----------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/adaptive.rst:22: WARNING: Title underline too short.
+
+Reconfiguration
+------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/adaptive.rst:22: WARNING: Title underline too short.
+
+Reconfiguration
+------------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/morphisms.rst:2: WARNING: Title underline too short.
+
+Morphisms Module
+=============== [docutils]
+WARNING: missing attribute mentioned in :members: option: module python.agent_temporal, attribute from_human_time [autodoc]
+WARNING: missing attribute mentioned in :members: option: module python.agent_temporal, attribute to_human_time [autodoc]
+/home/verlyn13/timekeeper/config/sphinx/modules/morphisms.rst:25: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/scheduler.rst:2: WARNING: Title underline too short.
+
+Scheduler Module
+=============== [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/scheduler.rst:44: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/temporal.rst:2: WARNING: Title underline too short.
+
+Temporal Module
+============== [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal:1: WARNING: duplicate object description of python.agent_temporal, other instance in modules/morphisms, use :no-index: for one of them
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:4: WARNING: Title underline too short.
+
+Mathematical Foundation:
+----------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:14: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:21: WARNING: Title underline too short.
+
+Key Mathematical Properties:
+-------------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:21: WARNING: Title underline too short.
+
+Key Mathematical Properties:
+-------------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:50: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:50: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:61: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:61: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:79: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:79: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:85: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal:85: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:15: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:15: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:39: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.__init__:39: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:14: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:14: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:15: WARNING: Inline strong start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:20: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:20: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:23: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:27: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:27: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:32: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:32: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "hierarchical partition". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.create_timepoint:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:15: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:22: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:22: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:28: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:28: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:31: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:35: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:35: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "hierarchical partition". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:43: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.normalize:43: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:21: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:21: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:26: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:26: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:29: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:32: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:32: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "hierarchical partition". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_base_units:40: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:10: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:12: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:22: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:22: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:25: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:29: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:29: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "temporal universe". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "hierarchical partition". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:37: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_base_units:37: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:23: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:23: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:26: WARNING: Inline strong start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:30: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:30: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:33: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:36: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:36: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:44: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.add_time:44: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:16: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:20: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:20: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:23: WARNING: Inline strong start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:27: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:27: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:30: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:33: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:33: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:38: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:38: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:46: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.subtract_time:46: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:9: WARNING: Inline substitution_reference start-string without end-string. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:16: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:16: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:23: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:23: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:26: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:33: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+copying assets... 
+copying static files... 
+Writing evaluated template result to /home/verlyn13/timekeeper/_build/sphinx/html/_static/basic.css
+Writing evaluated template result to /home/verlyn13/timekeeper/_build/sphinx/html/_static/language_data.js
+Writing evaluated template result to /home/verlyn13/timekeeper/_build/sphinx/html/_static/documentation_options.js
+Writing evaluated template result to /home/verlyn13/timekeeper/_build/sphinx/html/_static/copybutton.js
+copying static files: done
+copying extra files... 
+copying extra files: done
+copying assets: done
+writing output... [ 20%] index
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:41: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.compare_timepoints:41: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:24: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:24: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:27: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:30: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:30: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "timepoint operations". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:36: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:36: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:19: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:19: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:25: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:25: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:28: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:31: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:31: WARNING: Title underline too short.
+
+Raises:
+------ [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:36: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:36: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:42: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.from_human_time:42: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:4: WARNING: Title underline too short.
+
+Mathematical Definition:
+---------------------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:17: WARNING: Title underline too short.
+
+Parameters:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:22: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:22: WARNING: Title underline too short.
+
+Returns:
+------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:25: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:28: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:28: WARNING: Title underline too short.
+
+References:
+---------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:41: WARNING: Duplicate explicit target name: "morphisms". [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:34: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.to_human_time:34: WARNING: Title underline too short.
+
+Examples:
+-------- [docutils]
+/home/verlyn13/timekeeper/config/sphinx/modules/temporal.rst:44: ERROR: Unexpected indentation. [docutils]
+/home/verlyn13/timekeeper/src/python/agent_temporal.py:docstring of python.agent_temporal.AgentTemporal.time_difference:8: ERROR: Undefined substitution referenced: "tau_2|_{U_n}". [docutils]
+writing output... [ 40%] modules/adaptive
+writing output... [ 60%] modules/morphisms
+writing output... [ 80%] modules/scheduler
+writing output... [100%] modules/temporal
+
+generating indices... /home/verlyn13/timekeeper/config/sphinx/index.rst:28: WARNING: unknown document: '../../docs/theory/index' [ref.doc]
+genindex py-modindex done
+highlighting module code... [ 33%] python.adaptive_agent_temporal
+highlighting module code... [ 67%] python.agent_temporal
+highlighting module code... [100%] python.task_scheduler
+
+writing additional pages... search done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded, 182 warnings.
+
+The HTML pages are in ../../_build/sphinx/html.
+make: Leaving directory '/home/verlyn13/timekeeper/config/sphinx'

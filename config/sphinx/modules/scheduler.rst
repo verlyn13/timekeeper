@@ -41,6 +41,10 @@ Task Scheduling System (From Section 6 of the Formal Theory)
 # ----------
 #
 # .. automodule:: python.task_scheduler.optimization # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
    :members:
    :undoc-members:
    :show-inheritance:

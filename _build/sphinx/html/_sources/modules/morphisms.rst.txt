@@ -6,13 +6,17 @@ Temporal Morphisms (Definitions 16-19)
 See methods within AgentTemporal.
 
 .. automodule:: python.agent_temporal
-   :members: from_human_time, to_human_time
+   :members:
+   :undoc-members:
+   :no-index:
+   :show-inheritance:
+   :special-members: __init__
 
 # Commenting out subsections as there are no separate morphism modules
 # Human-Agent Morphisms
 # -------------------
 #
-# .. automodule:: python.morphisms.human_agent
+# .. automodule:: python.morphisms.human_agent # Adjust path if needed
 #    :members:
 #    :undoc-members:
 #    :show-inheritance:
@@ -21,7 +25,7 @@ See methods within AgentTemporal.
 # Conversion Utilities
 # ------------------
 #
-# .. automodule:: python.morphisms.converters
+# .. automodule:: python.morphisms.converters # Adjust path if needed
    :members:
    :undoc-members:
    :show-inheritance:

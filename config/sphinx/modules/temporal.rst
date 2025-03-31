@@ -41,6 +41,6 @@ Core Temporal Universe and Operations (Definitions 1-8)
 # ---------
 #
 # .. automodule:: python.temporal.operations # Adjust path if needed
-   :members:
-   :undoc-members:
+#    :members:
+#    :undoc-members:
    :show-inheritance:
