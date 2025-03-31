@@ -261,14 +261,160 @@
           <section id="adaptive-module">
 <h1>Adaptive Module<a class="headerlink" href="#adaptive-module" title="Link to this heading">¶</a></h1>
 <p>Adaptive Temporal System (Definition 21)</p>
-<section id="adaptive-temporal-system">
-<h2>Adaptive Temporal System<a class="headerlink" href="#adaptive-temporal-system" title="Link to this heading">¶</a></h2>
-</section>
+<p id="module-python.adaptive_agent_temporal">Implementation of the dynamic adaptability components of the AgentTemporal framework.</p>
+<p>This module extends the core AgentTemporal class with adaptability features
+that allow the system to adjust its temporal units based on observed usage patterns.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AdaptiveAgentTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="temporal.html#python.agent_temporal.AgentTemporal" title="python.agent_temporal.AgentTemporal"><code class="xref py py-class docutils literal notranslate"><span class="pre">AgentTemporal</span></code></a></p>
+<p>Extension of AgentTemporal that implements dynamic adaptability as described
+in Section 5 of the paper, in particular:</p>
+<ul class="simple">
+<li><p>Adaptive Subdivision Function Γ(O, A) (Definition 21)</p></li>
+<li><p>Partition Reconfiguration (Axiom 4)</p></li>
+<li><p>Optimal Temporal Granularity (Property 1)</p></li>
+</ul>
+<p>Initialize the adaptive temporal system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_config</strong> – Optional custom configuration of time units</p></li>
+<li><p><strong>agent_count</strong> – Number of agents in the system (default: 1)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agent_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the adaptive temporal system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_config</strong> – Optional custom configuration of time units</p></li>
+<li><p><strong>agent_count</strong> – Number of agents in the system (default: 1)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.track_operation">
+<span class="sig-name descname"><span class="pre">track_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.track_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.track_operation" title="Link to this definition">¶</a></dt>
+<dd><p>Track operations to inform adaptive behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_type</strong> – Type of operation (‘add’, ‘subtract’, ‘compare’, etc.)</p></li>
+<li><p><strong>unit_name</strong> – Specific unit the operation primarily involves, if applicable</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.adjust_subdivision">
+<span class="sig-name descname"><span class="pre">adjust_subdivision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_subdiv</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.adjust_subdivision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.adjust_subdivision" title="Link to this definition">¶</a></dt>
+<dd><p>Adjust the subdivision factor for a specific unit.</p>
+<p>This implements part of the Partition Reconfiguration axiom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_name</strong> – Name of the unit to adjust</p></li>
+<li><p><strong>new_subdiv</strong> – New subdivision factor</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time_unit">
+<span class="sig-name descname"><span class="pre">add_time_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">before_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.add_time_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time_unit" title="Link to this definition">¶</a></dt>
+<dd><p>Add a new time unit to the hierarchy.</p>
+<p>This implements the Refinement operation from the Partition Reconfiguration axiom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the new unit</p></li>
+<li><p><strong>subdivisions</strong> – How many of the next finer unit it contains</p></li>
+<li><p><strong>after_unit</strong> – Add after this unit (coarser side)</p></li>
+<li><p><strong>before_unit</strong> – Add before this unit (finer side)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.remove_time_unit">
+<span class="sig-name descname"><span class="pre">remove_time_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.remove_time_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.remove_time_unit" title="Link to this definition">¶</a></dt>
+<dd><p>Remove a time unit from the hierarchy.</p>
+<p>This implements the Coarsening operation from the Partition Reconfiguration axiom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>unit_name</strong> – Name of the unit to remove</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.optimize_for_agent_count">
+<span class="sig-name descname"><span class="pre">optimize_for_agent_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_agent_count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.optimize_for_agent_count"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.optimize_for_agent_count" title="Link to this definition">¶</a></dt>
+<dd><p>Optimize temporal structure for a specific number of agents.</p>
+<p>This implements the agent-specific optimality described in Property 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>new_agent_count</strong> – New number of agents in the system</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time">
+<span class="sig-name descname"><span class="pre">add_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.add_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time" title="Link to this definition">¶</a></dt>
+<dd><p>Override to track operation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.subtract_time">
+<span class="sig-name descname"><span class="pre">subtract_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.subtract_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.subtract_time" title="Link to this definition">¶</a></dt>
+<dd><p>Override to track operation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.compare_timepoints">
+<span class="sig-name descname"><span class="pre">compare_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.compare_timepoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.compare_timepoints" title="Link to this definition">¶</a></dt>
+<dd><p>Override to track operation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.to_human_time">
+<span class="sig-name descname"><span class="pre">to_human_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_tp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.to_human_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.to_human_time" title="Link to this definition">¶</a></dt>
+<dd><p>Override to track operation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.adaptive_agent_temporal.AdaptiveAgentTemporal.from_human_time">
+<span class="sig-name descname"><span class="pre">from_human_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">human_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/adaptive_agent_temporal.html#AdaptiveAgentTemporal.from_human_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.from_human_time" title="Link to this definition">¶</a></dt>
+<dd><p>Override to track operation</p>
+</dd></dl>
+
+</dd></dl>
+
 <section id="coefficient-adjuster">
 <h2>Coefficient Adjuster<a class="headerlink" href="#coefficient-adjuster" title="Link to this heading">¶</a></h2>
+<p># Assuming coefficient_adjuster is part of adaptive_agent_temporal or another module
+# If it’s a separate file src/python/coefficient_adjuster.py use:
+# .. automodule:: python.coefficient_adjuster
+# If it’s within adaptive_agent_temporal, document it there.
+# Removing this section for now as the module likely doesn’t exist standalone.</p>
 </section>
 <section id="reconfiguration">
 <h2>Reconfiguration<a class="headerlink" href="#reconfiguration" title="Link to this heading">¶</a></h2>
+<p># Assuming reconfiguration is part of adaptive_agent_temporal or another module
+# If it’s a separate file src/python/reconfiguration.py use:
+# .. automodule:: python.reconfiguration
+# If it’s within adaptive_agent_temporal, document it there.
+# Removing this section for now as the module likely doesn’t exist standalone.</p>
 </section>
 </section>
 
@@ -320,7 +466,20 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Adaptive Module</a><ul>
-<li><a class="reference internal" href="#adaptive-temporal-system">Adaptive Temporal System</a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal</span></code></a><ul>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.__init__"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.track_operation"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.track_operation()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.adjust_subdivision"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.adjust_subdivision()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time_unit"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.add_time_unit()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.remove_time_unit"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.remove_time_unit()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.optimize_for_agent_count"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.optimize_for_agent_count()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.add_time"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.add_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.subtract_time"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.subtract_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.compare_timepoints"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.compare_timepoints()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.to_human_time"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.to_human_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.adaptive_agent_temporal.AdaptiveAgentTemporal.from_human_time"><code class="docutils literal notranslate"><span class="pre">AdaptiveAgentTemporal.from_human_time()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#coefficient-adjuster">Coefficient Adjuster</a></li>
 <li><a class="reference internal" href="#reconfiguration">Reconfiguration</a></li>
 </ul>

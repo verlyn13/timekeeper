@@ -3,43 +3,44 @@ Scheduler Module
 
 Task Scheduling System (From Section 6 of the Formal Theory)
 
-.. automodule:: scheduler
+.. automodule:: python.task_scheduler
    :members:
    :undoc-members:
    :show-inheritance:
    :special-members: __init__
 
-Task Definition
-------------
-
-.. automodule:: scheduler.task
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :special-members: __init__
-
-Dependency Graph
---------------
-
-.. automodule:: scheduler.dependency_graph
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :special-members: __init__
-
-Scheduler
---------
-
-.. automodule:: scheduler.scheduler
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :special-members: __init__
-
-Optimization
-----------
-
-.. automodule:: scheduler.optimization
+# Commenting out subsections as these concepts are likely within the TaskScheduler class
+# Task Definition
+# ------------
+#
+# .. automodule:: python.task_scheduler.task # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Dependency Graph
+# --------------
+#
+# .. automodule:: python.task_scheduler.dependency_graph # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Scheduler
+# --------
+#
+# .. automodule:: python.task_scheduler # Redundant with above
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Optimization
+# ----------
+#
+# .. automodule:: python.task_scheduler.optimization # Adjust path if needed
    :members:
    :undoc-members:
    :show-inheritance:

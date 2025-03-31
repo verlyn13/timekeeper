@@ -261,18 +261,132 @@
           <section id="scheduler-module">
 <h1>Scheduler Module<a class="headerlink" href="#scheduler-module" title="Link to this heading">¶</a></h1>
 <p>Task Scheduling System (From Section 6 of the Formal Theory)</p>
-<section id="task-definition">
-<h2>Task Definition<a class="headerlink" href="#task-definition" title="Link to this heading">¶</a></h2>
-</section>
-<section id="dependency-graph">
-<h2>Dependency Graph<a class="headerlink" href="#dependency-graph" title="Link to this heading">¶</a></h2>
-</section>
-<section id="scheduler">
-<h2>Scheduler<a class="headerlink" href="#scheduler" title="Link to this heading">¶</a></h2>
-</section>
-<section id="optimization">
-<h2>Optimization<a class="headerlink" href="#optimization" title="Link to this heading">¶</a></h2>
-</section>
+<p id="module-python.task_scheduler">Implementation of the Task Scheduling component of the AgentTemporal framework.</p>
+<p>This module implements the task scheduling definitions and algorithms
+described in Section 6 of the paper.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="python.task_scheduler.TaskScheduler">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TaskScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temporal_system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/task_scheduler.html#TaskScheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.task_scheduler.TaskScheduler" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>Demonstrates the scheduling concepts from the paper:</dt><dd><ul class="simple">
+<li><p>Tasks T_i with durations δ_i, dependency sets D_i, etc. (Definition 26)</p></li>
+<li><p>Creates a schedule S that respects the constraints. (Definition 28)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Initialize the task scheduler with a temporal system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>temporal_system</strong> – An AgentTemporal instance to use for time operations</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="python.task_scheduler.TaskScheduler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temporal_system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/task_scheduler.html#TaskScheduler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.task_scheduler.TaskScheduler.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the task scheduler with a temporal system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>temporal_system</strong> – An AgentTemporal instance to use for time operations</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.task_scheduler.TaskScheduler.add_task">
+<span class="sig-name descname"><span class="pre">add_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dependencies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/task_scheduler.html#TaskScheduler.add_task"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.task_scheduler.TaskScheduler.add_task" title="Link to this definition">¶</a></dt>
+<dd><p>Add a task to the scheduler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> – Unique identifier for the task</p></li>
+<li><p><strong>duration</strong> – Dictionary of the form: {‘epoch’: X, ‘cycle’: Y, ‘step’: Z, …}
+or partial (zeros will be filled in as needed)</p></li>
+<li><p><strong>dependencies</strong> – List of task_ids that must complete before this task can start</p></li>
+<li><p><strong>resources</strong> – Dictionary of resource requirements</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.task_scheduler.TaskScheduler.schedule">
+<span class="sig-name descname"><span class="pre">schedule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/task_scheduler.html#TaskScheduler.schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.task_scheduler.TaskScheduler.schedule" title="Link to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>A simple topological order + earliest start approach:</dt><dd><ul class="simple">
+<li><p>For tasks with no unsatisfied deps, schedule them as soon as possible</p></li>
+<li><p>The ‘end’ time is start + duration (Theorem 29 about schedule feasibility).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>agent_count</strong> – Number of agents available for task execution</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of scheduled tasks with start and end times assigned</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.task_scheduler.TaskScheduler.visualize_schedule">
+<span class="sig-name descname"><span class="pre">visualize_schedule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/task_scheduler.html#TaskScheduler.visualize_schedule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.task_scheduler.TaskScheduler.visualize_schedule" title="Link to this definition">¶</a></dt>
+<dd><p>Returns data for visualizing the schedule.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict with tasks and their timing information</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p># Commenting out subsections as these concepts are likely within the TaskScheduler class
+# Task Definition
+# ————
+#
+# .. automodule:: python.task_scheduler.task # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Dependency Graph
+# ————–
+#
+# .. automodule:: python.task_scheduler.dependency_graph # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Scheduler
+# ——–
+#
+# .. automodule:: python.task_scheduler # Redundant with above
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Optimization
+# ———-
+#
+# .. automodule:: python.task_scheduler.optimization # Adjust path if needed</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">undoc-members<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">show-inheritance<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">special-members<span class="colon">:</span></dt>
+<dd class="field-even"><p>__init__</p>
+</dd>
+</dl>
+</div></blockquote>
 </section>
 
         </article>
@@ -331,10 +445,13 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Scheduler Module</a><ul>
-<li><a class="reference internal" href="#task-definition">Task Definition</a></li>
-<li><a class="reference internal" href="#dependency-graph">Dependency Graph</a></li>
-<li><a class="reference internal" href="#scheduler">Scheduler</a></li>
-<li><a class="reference internal" href="#optimization">Optimization</a></li>
+<li><a class="reference internal" href="#python.task_scheduler.TaskScheduler"><code class="docutils literal notranslate"><span class="pre">TaskScheduler</span></code></a><ul>
+<li><a class="reference internal" href="#python.task_scheduler.TaskScheduler.__init__"><code class="docutils literal notranslate"><span class="pre">TaskScheduler.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#python.task_scheduler.TaskScheduler.add_task"><code class="docutils literal notranslate"><span class="pre">TaskScheduler.add_task()</span></code></a></li>
+<li><a class="reference internal" href="#python.task_scheduler.TaskScheduler.schedule"><code class="docutils literal notranslate"><span class="pre">TaskScheduler.schedule()</span></code></a></li>
+<li><a class="reference internal" href="#python.task_scheduler.TaskScheduler.visualize_schedule"><code class="docutils literal notranslate"><span class="pre">TaskScheduler.visualize_schedule()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

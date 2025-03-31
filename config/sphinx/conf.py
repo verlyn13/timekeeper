@@ -106,3 +106,8 @@ html_css_files = [
 #     "repository_url": "https://github.com/verlyn13/timekeeper",
 #     "use_repository_button": True,
 # })
+import os
+import sys
+
+# Add project root to the path for autodoc
+sys.path.insert(0, os.path.abspath("../../.."))

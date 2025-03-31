@@ -3,25 +3,25 @@ Morphisms Module
 
 Temporal Morphisms (Definitions 16-19)
 
-.. automodule:: core.morphisms
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :special-members: __init__
+See methods within AgentTemporal.
 
-Human-Agent Morphisms
--------------------
+.. automodule:: python.agent_temporal
+   :members: from_human_time, to_human_time
 
-.. automodule:: core.morphisms.human_agent
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :special-members: __init__
-
-Conversion Utilities
-------------------
-
-.. automodule:: core.morphisms.converters
+# Commenting out subsections as there are no separate morphism modules
+# Human-Agent Morphisms
+# -------------------
+#
+# .. automodule:: python.morphisms.human_agent
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Conversion Utilities
+# ------------------
+#
+# .. automodule:: python.morphisms.converters
    :members:
    :undoc-members:
    :show-inheritance:

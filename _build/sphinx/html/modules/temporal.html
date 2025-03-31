@@ -261,243 +261,811 @@
           <section id="temporal-module">
 <h1>Temporal Module<a class="headerlink" href="#temporal-module" title="Link to this heading">¶</a></h1>
 <p>Core Temporal Universe and Operations (Definitions 1-8)</p>
-<section id="temporal-universe">
-<h2>Temporal Universe<a class="headerlink" href="#temporal-universe" title="Link to this heading">¶</a></h2>
-<p id="module-core.temporal.universe">Temporal Universe Implementation.</p>
-<p>This module implements the concept of a Temporal Universe (Definition 1)
-from the formal mathematical theory of hierarchical temporal partitions.</p>
+<p id="module-python.agent_temporal">Implementation of the AgentTemporal framework core components.</p>
+<p>This module directly implements the mathematical constructs described in
+the theoretical framework, including temporal universe, hierarchical partitions,
+timepoints, and operations on them.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TemporalUniverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AgentTemporal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Implementation of a Temporal Universe as defined in the formal theory.</p>
-<p>A Temporal Universe is a mathematical structure consisting of a set of time points
-with a strict total ordering relation, representing the fundamental temporal domain
-for agent operations.</p>
-<p class="rubric">Theoretical Foundation</p>
-<p>This class implements Definition 1 (Temporal Universe) from the formal theory.
-A temporal universe is defined as a pair (T, &lt;) where:</p>
+<p>A comprehensive implementation of a hierarchical temporal system for agents.</p>
+<section id="mathematical-foundation">
+<h2>Mathematical Foundation:<a class="headerlink" href="#mathematical-foundation" title="Link to this heading">¶</a></h2>
+<p>This class implements the Temporal Universe (𝒯) defined as:</p>
+<p>[ 𝒯 = (T, {Pi_0, Pi_1, ldots, Pi_n}, {k_1, k_2, ldots, k_n}) ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$T$ is the time domain (Definition 1)</p></li>
+<li><p>$Pi_i$ are hierarchical partitions of $T$ (Definitions 2-4)</p></li>
+<li><p>$k_i$ are subdivision factors: $|Pi_{i-1}(t)| = k_i cdot <a href="#id1"><span class="problematic" id="id2">|</span></a>Pi_i(t)|$ (Definition 5)</p></li>
+</ul>
+<p>Timepoints are represented as tuples $(a_0, a_1, ldots, a_{n-1})$ where $a_i$
+represents a coordinate in partition $Pi_i$ (Definition 6). The dictionary-based
+implementation maps unit names to these coordinates.</p>
+</section>
+<section id="key-mathematical-properties">
+<h2>Key Mathematical Properties:<a class="headerlink" href="#key-mathematical-properties" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Canonical Form: Every timepoint has a unique canonical representation
+where $0 leq a_i &lt; k_{i+1}$ for $0 leq i &lt; n-1$ (Definition 7)</p></li>
+<li><p>Temporal Addition (⊕): Defined as coordinate-wise addition followed by
+normalization to canonical form (Axiom 1)</p></li>
+<li><p>Temporal Subtraction (⊖): Inverse of addition, defined only when the
+result remains non-negative (Axiom 2)</p></li>
+<li><p>Absolute Representation: Every timepoint can be represented as an
+absolute value in the base units: $|\tau|_{U_n}$ (Definition 9)</p></li>
+</ol>
+</section>
+<section id="references">
+<h2>References:<a class="headerlink" href="#references" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md">Temporal Universe</a> for complete theory.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/hierarchical_partition.md">Hierarchical Partition</a> for details on partitions.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md">Timepoint Operations</a> for operation definitions.</p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>Examples:<a class="headerlink" href="#examples" title="Link to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">add_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comparison</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">compare_timepoints</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>  <span class="c1"># Returns -1 (t1 &lt; t2)</span>
+</pre></div>
+</div>
+<p>Initialize a new temporal universe with the specified hierarchy of time units.</p>
+</section>
+<section id="mathematical-definition">
+<h2>Mathematical Definition:<a class="headerlink" href="#mathematical-definition" title="Link to this heading">¶</a></h2>
+<p>This constructor establishes a Temporal Universe 𝒯 with the given hierarchical
+partitions and subdivision factors:</p>
+<p>[ 𝒯 = (T, {Pi_0, Pi_1, ldots, Pi_n}, {k_1, k_2, ldots, k_n}) ]</p>
+<p>The hierarchical structure is defined by the <cite>unit_config</cite> parameter, which
+specifies the names and subdivision factors for each level of the hierarchy.</p>
+</section>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl>
+<dt>unit_config<span class="classifier">list of dict, optional</span></dt><dd><p>Custom specification of the hierarchy of time units. Each dictionary should
+contain:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>T is a set of timepoints</p></li>
-<li><p>&lt; is a strict total ordering on T</p></li>
+<li><p>“name”: The name of the time unit (string)</p></li>
+<li><dl class="simple">
+<dt>“subdivisions”: How many units of the next finer level fit into one unit</dt><dd><p>of this level (int), or None for the base unit</p>
+</dd>
+</dl>
+</li>
+<li><p>“is_base”: True if this is the base (finest) unit, False otherwise</p></li>
 </ul>
 </div></blockquote>
-<p class="rubric">References</p>
+<p>If None, a default set of partitions is used:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>epoch (24 cycles per epoch)</p></li>
+<li><p>cycle (60 steps per cycle)</p></li>
+<li><p>step (1000 microsteps per step)</p></li>
+<li><p>microstep (base unit)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h2>References:<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <ul class="simple">
-<li><p>Definition 1: Temporal Universe</p></li>
-<li><p>Definition 2: Hierarchical Partition (built on top of this)</p></li>
-<li><p>Axiom 1: Time Linearity (implemented by the ordering)</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definitions">Temporal Universe</a> for
+details on temporal universe structure.</p></li>
 </ul>
-<p>Initialize a temporal universe with hierarchical units.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>units</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – A list of unit names from coarsest to finest
-(e.g., [“epoch”, “cycle”, “step”])</p></li>
-<li><p><strong>subdivisions</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – A list of subdivision factors between adjacent units
-(e.g., [100, 50] means 100 cycles per epoch, 50 steps per cycle)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the inputs are invalid</p>
-</dd>
-</dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This constructor establishes the hierarchical structure defined in
-Definition 2 (Hierarchical Partition), built upon the temporal universe.</p>
+</section>
+<section id="id5">
+<h2>Examples:<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using default configuration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using custom configuration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom_config</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;is_base&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom_temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">(</span><span class="n">custom_config</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivisions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.__init__" title="Link to this definition">¶</a></dt>
-<dd><p>Initialize a temporal universe with hierarchical units.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>units</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – A list of unit names from coarsest to finest
-(e.g., [“epoch”, “cycle”, “step”])</p></li>
-<li><p><strong>subdivisions</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – A list of subdivision factors between adjacent units
-(e.g., [100, 50] means 100 cycles per epoch, 50 steps per cycle)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the inputs are invalid</p>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit_config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize a new temporal universe with the specified hierarchy of time units.</p>
+<section id="id6">
+<h3>Mathematical Definition:<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>This constructor establishes a Temporal Universe 𝒯 with the given hierarchical
+partitions and subdivision factors:</p>
+<p>[ 𝒯 = (T, {Pi_0, Pi_1, ldots, Pi_n}, {k_1, k_2, ldots, k_n}) ]</p>
+<p>The hierarchical structure is defined by the <cite>unit_config</cite> parameter, which
+specifies the names and subdivision factors for each level of the hierarchy.</p>
+</section>
+<section id="id7">
+<h3>Parameters:<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<dl>
+<dt>unit_config<span class="classifier">list of dict, optional</span></dt><dd><p>Custom specification of the hierarchy of time units. Each dictionary should
+contain:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>“name”: The name of the time unit (string)</p></li>
+<li><dl class="simple">
+<dt>“subdivisions”: How many units of the next finer level fit into one unit</dt><dd><p>of this level (int), or None for the base unit</p>
 </dd>
 </dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This constructor establishes the hierarchical structure defined in
-Definition 2 (Hierarchical Partition), built upon the temporal universe.</p>
+</li>
+<li><p>“is_base”: True if this is the base (finest) unit, False otherwise</p></li>
+</ul>
+</div></blockquote>
+<p>If None, a default set of partitions is used:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>epoch (24 cycles per epoch)</p></li>
+<li><p>cycle (60 steps per cycle)</p></li>
+<li><p>step (1000 microsteps per step)</p></li>
+<li><p>microstep (base unit)</p></li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h3>References:<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definitions">Temporal Universe</a> for
+details on temporal universe structure.</p></li>
+</ul>
+</section>
+<section id="id10">
+<h3>Examples:<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using default configuration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using custom configuration</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom_config</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;step&quot;</span><span class="p">,</span> <span class="s2">&quot;subdivisions&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;is_base&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">custom_temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">(</span><span class="n">custom_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.create_timepoint">
-<span class="sig-name descname"><span class="pre">create_timepoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.create_timepoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.create_timepoint" title="Link to this definition">¶</a></dt>
-<dd><p>Create a timepoint in canonical form.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**components</strong> – Keyword arguments specifying timepoint components
-(e.g., epoch=1, cycle=5, step=10)</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A dictionary representing the timepoint in canonical form</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If invalid components are provided</p>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.create_timepoint">
+<span class="sig-name descname"><span class="pre">create_timepoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.create_timepoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.create_timepoint" title="Link to this definition">¶</a></dt>
+<dd><p>Create a timepoint with specified unit values.</p>
+<section id="id11">
+<h3>Mathematical Definition:<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>This method creates a timepoint $tau = (a_0, a_1, ldots, a_{n-1})$ where
+each $a_i$ represents a coordinate in partition $Pi_i$. The implementation
+represents this as a dictionary mapping unit names to values.</p>
+<p>The timepoint is automatically normalized to canonical form, where
+$0 leq a_i &lt; k_{i+1}$ for $0 leq i &lt; n-1$.</p>
+</section>
+<section id="id12">
+<h3>Parameters:<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><a href="#id13"><span class="problematic" id="id14">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Unit values specified as keyword arguments (e.g., epoch=1, cycle=10).
+Units not specified default to 0.</p>
 </dd>
 </dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method creates a timepoint as defined in Definition 6 (Timepoint),
-ensuring it adheres to the canonical form specified in Definition 7.</p>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A dictionary mapping unit names to values, representing a timepoint
+in canonical form.</p>
+</div></blockquote>
+</section>
+<section id="raises">
+<h3>Raises:<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If an unknown unit name is provided.</p>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h3>References:<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definition-3-timepoint">Temporal Universe</a> for
+details on timepoint representation.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/hierarchical_partition.md#definition-5-canonical-coordinates">Hierarchical Partition</a> for
+details on canonical coordinates.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>Examples:<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create with specific values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create with partial specification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">cycle</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>  <span class="c1"># epoch=0, step=0, microstep=0 by default</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create with values that need normalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t3</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">cycle</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>  <span class="c1"># Normalized to epoch=1, cycle=10</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.normalize_timepoint">
-<span class="sig-name descname"><span class="pre">normalize_timepoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timepoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.normalize_timepoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.normalize_timepoint" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.normalize">
+<span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timepoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.normalize" title="Link to this definition">¶</a></dt>
 <dd><p>Normalize a timepoint to its canonical form.</p>
-<p>Implements the normalization procedure from Definition 7 (Canonical Timepoint Representation)
-in the formal theory. Ensures each component a_i satisfies 0 &lt;= a_i &lt; k_i.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>timepoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – A dictionary representation of a timepoint</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The normalized timepoint in canonical form</p>
-</dd>
-</dl>
-<p class="rubric">References</p>
+<section id="id19">
+<h3>Mathematical Definition:<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<p>This method implements the normalization function $mathcal{N}$ that
+converts a timepoint to its canonical form:</p>
+<p>[ mathcal{N}(tau) = (b_0, b_1, ldots, b_{n-1}) ]</p>
+<p>where:</p>
 <ul class="simple">
-<li><p>Definition 7: Canonical Timepoint Representation</p></li>
-<li><p>Used in: Axiom 2 (Temporal Addition), Axiom 3 (Temporal Subtraction)</p></li>
+<li><p>$tau = (a_0, a_1, ldots, a_{n-1})$ is the input timepoint</p></li>
+<li><p>For all $i in {0, 1, ldots, n-2}$, $0 leq b_i &lt; k_{i+1}$</p></li>
+<li><p>$|tau|_{U_n} = <a href="#id20"><span class="problematic" id="id21">|</span></a>mathcal{N}(tau)|_{U_n}$ (absolute representation is preserved)</p></li>
 </ul>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.compare_timepoints">
-<span class="sig-name descname"><span class="pre">compare_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.compare_timepoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.compare_timepoints" title="Link to this definition">¶</a></dt>
-<dd><p>Compare two timepoints to determine their ordering.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>t1</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – First timepoint</p></li>
-<li><p><strong>t2</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – Second timepoint</p></li>
+<p>The normalization process ensures that each coordinate is within the
+appropriate range for its position in the hierarchy, carrying excess
+values to coarser units when necessary.</p>
+</section>
+<section id="id22">
+<h3>Parameters:<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>timepoint<span class="classifier">dict</span></dt><dd><p>A dictionary mapping unit names to values, representing a timepoint
+that may not be in canonical form.</p>
+</dd>
+</dl>
+</section>
+<section id="id23">
+<h3>Returns:<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A dictionary mapping unit names to values, representing the input
+timepoint in canonical form.</p>
+</div></blockquote>
+</section>
+<section id="id24">
+<h3>References:<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definition-4-canonical-form">Temporal Universe</a> for
+details on canonical form.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/hierarchical_partition.md#property-1-canonical-form-uniqueness">Hierarchical Partition</a> for
+details on canonical form uniqueness.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>-1 if t1 &lt; t2, 0 if t1 == t2, 1 if t1 &gt; t2</p>
-</dd>
-</dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method implements the strict total ordering (&lt;) defined in
-Definition 1 (Temporal Universe), and follows Axiom 1 (Time Linearity).</p>
+</section>
+<section id="id27">
+<h3>Examples:<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Normalize a timepoint with out-of-range values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">non_canonical</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;epoch&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;cycle&#39;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span> <span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;microstep&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">canonical</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">non_canonical</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 2, &#39;cycle&#39;: 10, &#39;step&#39;: 30, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.timepoint_to_absolute">
-<span class="sig-name descname"><span class="pre">timepoint_to_absolute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timepoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.timepoint_to_absolute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.timepoint_to_absolute" title="Link to this definition">¶</a></dt>
-<dd><p>Convert a timepoint to an absolute numerical value.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>timepoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – A timepoint dictionary</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>An integer representing the absolute position in the finest units</p>
-</dd>
-</dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method implements the bijection between hierarchical timepoints and
-linear timepoints described in Theorem 1 (Hierarchical-Linear Equivalence).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.absolute_to_timepoint">
-<span class="sig-name descname"><span class="pre">absolute_to_timepoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">absolute_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.absolute_to_timepoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.absolute_to_timepoint" title="Link to this definition">¶</a></dt>
-<dd><p>Convert an absolute value to a canonical timepoint.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>absolute_value</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) – An integer representing absolute time in finest units</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A timepoint dictionary in canonical form</p>
-</dd>
-</dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method implements the inverse of the bijection described in
-Theorem 1 (Hierarchical-Linear Equivalence).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.add_duration">
-<span class="sig-name descname"><span class="pre">add_duration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timepoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.add_duration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.add_duration" title="Link to this definition">¶</a></dt>
-<dd><p>Add a duration to a timepoint.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>timepoint</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The starting timepoint</p></li>
-<li><p><strong>duration</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The duration to add</p></li>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.to_base_units">
+<span class="sig-name descname"><span class="pre">to_base_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timepoint</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.to_base_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.to_base_units" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a timepoint to its absolute representation in base units.</p>
+<section id="id28">
+<h3>Mathematical Definition:<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<p>This method implements the absolute representation function $|cdot|_{U_n}$
+that maps a timepoint to a scalar value in the base units:</p>
+<p>[ <a href="#id29"><span class="problematic" id="id30">|</span></a>tau|_{U_n} = sum_{i=0}^{n-1} a_i cdot prod_{j=i+1}^{n} k_j ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$tau = (a_0, a_1, ldots, a_{n-1})$ is the timepoint</p></li>
+<li><p>$k_j$ are the subdivision factors</p></li>
+<li><p>$U_n$ is the base (finest) partition</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The resulting timepoint after adding the duration</p>
+<p>This absolute representation provides a common basis for comparing
+and manipulating timepoints.</p>
+</section>
+<section id="id31">
+<h3>Parameters:<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>timepoint<span class="classifier">dict</span></dt><dd><p>A dictionary mapping unit names to values, representing a timepoint.</p>
 </dd>
 </dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method implements Axiom 2 (Temporal Addition) from the formal theory.</p>
+</section>
+<section id="id32">
+<h3>Returns:<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<p>:
+float</p>
+<blockquote>
+<div><p>The absolute representation of the timepoint in the base units.</p>
+</div></blockquote>
+</section>
+<section id="id33">
+<h3>References:<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definition-5-absolute-representation">Temporal Universe</a> for
+details on absolute representation.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/hierarchical_partition.md#property-2-base-unit-conversion">Hierarchical Partition</a> for
+details on base unit conversion.</p></li>
+</ul>
+</section>
+<section id="id36">
+<h3>Examples:<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert a timepoint to base units (microsteps)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tp</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># For default config: 1 epoch = 24*60*1000 microsteps, 10 cycles = 10*60*1000 microsteps, etc.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base_units</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">to_base_units</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result is 1*24*60*1000 + 10*60*1000 + 30*1000 = 2,070,000</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="core.temporal.universe.TemporalUniverse.subtract_timepoints">
-<span class="sig-name descname"><span class="pre">subtract_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/core/temporal/universe.html#TemporalUniverse.subtract_timepoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#core.temporal.universe.TemporalUniverse.subtract_timepoints" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate the duration between two timepoints.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>t2</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The later timepoint</p></li>
-<li><p><strong>t1</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – The earlier timepoint</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A duration representing t2 - t1</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If t2 is earlier than t1</p>
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.from_base_units">
+<span class="sig-name descname"><span class="pre">from_base_units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.from_base_units"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.from_base_units" title="Link to this definition">¶</a></dt>
+<dd><p>Convert an absolute base unit value to a timepoint.</p>
+<section id="id37">
+<h3>Mathematical Definition:<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
+<p>This method is the inverse of the absolute representation function,
+reconstructing a timepoint $tau = (a_0, a_1, ldots, a_{n-1})$ from
+its absolute representation $|tau|_{U_n}$ in the base units:</p>
+<p>[ a_i = lfloor frac{<a href="#id38"><span class="problematic" id="id39">|</span></a>tau|_{U_n} - sum_{j=0}^{i-1} a_j cdot prod_{l=j+1}^{n} k_l}{prod_{l=i+1}^{n} k_l} rfloor mod k_{i+1} ]</p>
+<p>for $i &lt; n-1$, and $a_{n-1} = <a href="#id40"><span class="problematic" id="id41">|</span></a>tau|_{U_n} - sum_{j=0}^{n-2} a_j cdot prod_{l=j+1}^{n} k_l$.</p>
+<p>The resulting timepoint is always in canonical form.</p>
+</section>
+<section id="id42">
+<h3>Parameters:<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>base_value<span class="classifier">float</span></dt><dd><p>An absolute value in the base units.</p>
 </dd>
 </dl>
-<p class="rubric">Theoretical Foundation</p>
-<p>This method implements Axiom 3 (Temporal Subtraction) from the formal theory.</p>
+</section>
+<section id="id43">
+<h3>Returns:<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A dictionary mapping unit names to values, representing a timepoint
+in canonical form with the given absolute value.</p>
+</div></blockquote>
+</section>
+<section id="id44">
+<h3>References:<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/temporal_universe.md#definition-5-absolute-representation">Temporal Universe</a> for
+details on absolute representation.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/hierarchical_partition.md#property-2-base-unit-conversion">Hierarchical Partition</a> for
+details on base unit conversion.</p></li>
+</ul>
+</section>
+<section id="id47">
+<h3>Examples:<a class="headerlink" href="#id47" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert a base unit value to a timepoint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base_value</span> <span class="o">=</span> <span class="mi">2_070_000</span>  <span class="c1"># 1 epoch, 10 cycles, 30 steps, 0 microsteps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tp</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">from_base_units</span><span class="p">(</span><span class="n">base_value</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 1, &#39;cycle&#39;: 10, &#39;step&#39;: 30, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.add_time">
+<span class="sig-name descname"><span class="pre">add_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.add_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.add_time" title="Link to this definition">¶</a></dt>
+<dd><p>Add time to a timepoint.</p>
+<section id="id48">
+<h3>Mathematical Definition:<a class="headerlink" href="#id48" title="Link to this heading">¶</a></h3>
+<p>This method implements the temporal addition operation $oplus$ defined as:</p>
+<p>[ tau_1 oplus tau_2 = mathcal{N}(tau_1 + tau_2) ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$tau_1$ and $tau_2$ are timepoints</p></li>
+<li><p>$mathcal{N}$ is the normalization function</p></li>
+<li><p>$+$ represents the coordinate-wise addition</p></li>
+</ul>
+<p>The operation satisfies these properties:</p>
+<ol class="arabic simple">
+<li><p>Associativity: $(tau_1 oplus tau_2) oplus tau_3 = tau_1 oplus (tau_2 oplus tau_3)$</p></li>
+<li><p>Commutativity: $tau_1 oplus tau_2 = tau_2 oplus tau_1$</p></li>
+<li><p>Identity: $tau oplus mathbf{0} = tau$ where $mathbf{0}$ is the zero timepoint</p></li>
+</ol>
+</section>
+<section id="id49">
+<h3>Parameters:<a class="headerlink" href="#id49" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>tp<span class="classifier">dict</span></dt><dd><p>The timepoint to which time will be added.</p>
+</dd>
+<dt><a href="#id50"><span class="problematic" id="id51">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Time to add, specified as keyword arguments (e.g., cycle=5, step=10).</p>
+</dd>
+</dl>
+</section>
+<section id="id52">
+<h3>Returns:<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A new timepoint resulting from the addition, in canonical form.</p>
+</div></blockquote>
+</section>
+<section id="id53">
+<h3>References:<a class="headerlink" href="#id53" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#definition-1-timepoint-addition">Timepoint Operations</a> for
+details on timepoint addition.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#property-1-associativity-of-addition">Timepoint Operations</a> for
+properties of addition.</p></li>
+</ul>
+</section>
+<section id="id56">
+<h3>Examples:<a class="headerlink" href="#id56" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add 5 cycles and 50 steps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">add_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 1, &#39;cycle&#39;: 15, &#39;step&#39;: 80, &#39;microstep&#39;: 0}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Addition with carry-over</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t3</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">add_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>  <span class="c1"># 10+55=65 cycles, normalized to 1 epoch, 5 cycles</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 2, &#39;cycle&#39;: 5, &#39;step&#39;: 30, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.subtract_time">
+<span class="sig-name descname"><span class="pre">subtract_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.subtract_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.subtract_time" title="Link to this definition">¶</a></dt>
+<dd><p>Subtract time from a timepoint.</p>
+<section id="id57">
+<h3>Mathematical Definition:<a class="headerlink" href="#id57" title="Link to this heading">¶</a></h3>
+<p>This method implements the temporal subtraction operation $ominus$ defined as:</p>
+<p>[ tau_1 ominus tau_2 = mathcal{N}(tau_1 - tau_2) ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$tau_1$ and $tau_2$ are timepoints</p></li>
+<li><p>$mathcal{N}$ is the normalization function</p></li>
+<li><p>$-$ represents the coordinate-wise subtraction</p></li>
+</ul>
+<p>The operation is only defined when the result is non-negative, i.e.,
+when $|tau_1|_{U_n} geq <a href="#id58"><span class="problematic" id="id59">|</span></a>tau_2|_{U_n}$.</p>
+</section>
+<section id="id60">
+<h3>Parameters:<a class="headerlink" href="#id60" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>tp<span class="classifier">dict</span></dt><dd><p>The timepoint from which time will be subtracted.</p>
+</dd>
+<dt><a href="#id61"><span class="problematic" id="id62">**</span></a>kwargs<span class="classifier">dict</span></dt><dd><p>Time to subtract, specified as keyword arguments (e.g., cycle=5, step=10).</p>
+</dd>
+</dl>
+</section>
+<section id="id63">
+<h3>Returns:<a class="headerlink" href="#id63" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A new timepoint resulting from the subtraction, in canonical form.</p>
+</div></blockquote>
+</section>
+<section id="id64">
+<h3>Raises:<a class="headerlink" href="#id64" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the subtraction would result in a negative time.</p>
+</dd>
+</dl>
+</section>
+<section id="id65">
+<h3>References:<a class="headerlink" href="#id65" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#definition-2-timepoint-subtraction">Timepoint Operations</a> for
+details on timepoint subtraction.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#property-4-non-negative-time">Timepoint Operations</a> for
+the non-negative time property.</p></li>
+</ul>
+</section>
+<section id="id68">
+<h3>Examples:<a class="headerlink" href="#id68" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtract 10 cycles and 200 steps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">subtract_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 2, &#39;cycle&#39;: 10, &#39;step&#39;: 300, &#39;microstep&#39;: 0}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Subtraction with borrowing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t3</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">subtract_time</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">21</span><span class="p">)</span>  <span class="c1"># Need to borrow from epoch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 1, &#39;cycle&#39;: 59, &#39;step&#39;: 500, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.compare_timepoints">
+<span class="sig-name descname"><span class="pre">compare_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.compare_timepoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.compare_timepoints" title="Link to this definition">¶</a></dt>
+<dd><p>Compare two timepoints.</p>
+<section id="id69">
+<h3>Mathematical Definition:<a class="headerlink" href="#id69" title="Link to this heading">¶</a></h3>
+<p>This method implements the comparison of timepoints based on their
+absolute representations:</p>
+<p>[ tau_1 &lt; tau_2 iff <a href="#id70"><span class="problematic" id="id71">|</span></a>tau_1|_{U_n} &lt; <a href="#id72"><span class="problematic" id="id73">|</span></a>tau_2|_{U_n} ]
+[ tau_1 = tau_2 iff <a href="#id74"><span class="problematic" id="id75">|</span></a>tau_1|_{U_n} = <a href="#id76"><span class="problematic" id="id77">|</span></a>tau_2|_{U_n} ]
+[ tau_1 &gt; tau_2 iff <a href="#id78"><span class="problematic" id="id79">|</span></a>tau_1|_{U_n} &gt; <a href="#id80"><span class="problematic" id="id81">|</span></a>tau_2|_{U_n} ]</p>
+<p>This defines a total ordering on timepoints.</p>
+</section>
+<section id="id82">
+<h3>Parameters:<a class="headerlink" href="#id82" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>t1<span class="classifier">dict</span></dt><dd><p>The first timepoint to compare.</p>
+</dd>
+<dt>t2<span class="classifier">dict</span></dt><dd><p>The second timepoint to compare.</p>
+</dd>
+</dl>
+</section>
+<section id="id83">
+<h3>Returns:<a class="headerlink" href="#id83" title="Link to this heading">¶</a></h3>
+<p>:
+int</p>
+<blockquote>
+<div><p>Comparison result:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>-1 if t1 &lt; t2</p></li>
+<li><p>0 if t1 == t2</p></li>
+<li><p>1 if t1 &gt; t2</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="id84">
+<h3>References:<a class="headerlink" href="#id84" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#definition-3-timepoint-comparison">Timepoint Operations</a> for
+details on timepoint comparison.</p></li>
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#property-5-total-ordering">Timepoint Operations</a> for
+the total ordering property.</p></li>
+</ul>
+</section>
+<section id="id87">
+<h3>Examples:<a class="headerlink" href="#id87" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t3</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span><span class="o">.</span><span class="n">compare_timepoints</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>  <span class="c1"># Returns -1 (t1 &lt; t2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span><span class="o">.</span><span class="n">compare_timepoints</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t3</span><span class="p">)</span>  <span class="c1"># Returns 0 (t1 == t3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span><span class="o">.</span><span class="n">compare_timepoints</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>  <span class="c1"># Returns 1 (t2 &gt; t1)</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.time_difference">
+<span class="sig-name descname"><span class="pre">time_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.time_difference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.time_difference" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the absolute time difference between two timepoints.</p>
+<section id="id88">
+<h3>Mathematical Definition:<a class="headerlink" href="#id88" title="Link to this heading">¶</a></h3>
+<p>This method calculates the absolute difference between two timepoints:</p>
+<p>[ Delta(tau_1, tau_2) = mathcal{N}(||tau_1|_{U_n} - <a href="#id106"><span class="problematic" id="id107">|\tau_2|_{U_n}|</span></a>) ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$tau_1$ and $tau_2$ are timepoints</p></li>
+<li><p>$|tau|_{U_n}$ is the absolute representation in base units</p></li>
+<li><p>$mathcal{N}$ is the normalization function</p></li>
+</ul>
+</section>
+<section id="id89">
+<h3>Parameters:<a class="headerlink" href="#id89" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>t1<span class="classifier">dict</span></dt><dd><p>The first timepoint.</p>
+</dd>
+<dt>t2<span class="classifier">dict</span></dt><dd><p>The second timepoint.</p>
+</dd>
+</dl>
+</section>
+<section id="id90">
+<h3>Returns:<a class="headerlink" href="#id90" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A timepoint representing the absolute difference between t1 and t2.</p>
+</div></blockquote>
+</section>
+<section id="id91">
+<h3>References:<a class="headerlink" href="#id91" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/timepoint_operations.md#definition-4-time-difference">Timepoint Operations</a> for
+details on time difference calculation.</p></li>
+</ul>
+</section>
+<section id="id93">
+<h3>Examples:<a class="headerlink" href="#id93" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t2</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Calculate difference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diff</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">time_difference</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 0, &#39;cycle&#39;: 5, &#39;step&#39;: 10, &#39;microstep&#39;: 0}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Order doesn&#39;t matter for absolute difference</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">diff_rev</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">time_difference</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result is the same: {&#39;epoch&#39;: 0, &#39;cycle&#39;: 5, &#39;step&#39;: 10, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.from_human_time">
+<span class="sig-name descname"><span class="pre">from_human_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">human_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.from_human_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.from_human_time" title="Link to this definition">¶</a></dt>
+<dd><p>Convert human time to agent time.</p>
+<section id="id94">
+<h3>Mathematical Definition:<a class="headerlink" href="#id94" title="Link to this heading">¶</a></h3>
+<p>This method implements the inverse morphism $phi^{-1}: mathcal{H} rightarrow mathcal{T}$
+from human time to agent time:</p>
+<p>[ phi^{-1}(h) = mathcal{N}(sum_{i in I_h} h_i cdot e_{mu(i)}) ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$h = (h_i)_{i in I_h}$ is the human time representation</p></li>
+<li><p>$mu: I_h rightarrow I_{tau}$ is the mapping from human time units to agent time units</p></li>
+<li><p>$e_j$ is the unit vector with 1 in position $j$ and 0 elsewhere</p></li>
+<li><p>$mathcal{N}$ is the normalization function</p></li>
+</ul>
+</section>
+<section id="id95">
+<h3>Parameters:<a class="headerlink" href="#id95" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>human_dict<span class="classifier">dict</span></dt><dd><p>A dictionary mapping human time units to values
+(e.g., {“hours”: 1, “minutes”: 30, “seconds”: 45}).</p>
+</dd>
+</dl>
+</section>
+<section id="id96">
+<h3>Returns:<a class="headerlink" href="#id96" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A timepoint in the agent temporal universe equivalent to the given human time.</p>
+</div></blockquote>
+</section>
+<section id="id97">
+<h3>Raises:<a class="headerlink" href="#id97" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If a human time unit is not recognized.</p>
+</dd>
+</dl>
+</section>
+<section id="id98">
+<h3>References:<a class="headerlink" href="#id98" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/morphisms.md#definition-3-human-agent-morphism">Morphisms</a> for
+details on the human-agent morphism.</p></li>
+</ul>
+</section>
+<section id="id99">
+<h3>Examples:<a class="headerlink" href="#id99" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert human time to agent time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">human_time</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hours&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;minutes&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">&quot;seconds&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">agent_time</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">from_human_time</span><span class="p">(</span><span class="n">human_time</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 2, &#39;cycle&#39;: 15, &#39;step&#39;: 30, &#39;microstep&#39;: 0}</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert partial human time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">partial_time</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;minutes&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">agent_partial</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">from_human_time</span><span class="p">(</span><span class="n">partial_time</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;epoch&#39;: 0, &#39;cycle&#39;: 30, &#39;step&#39;: 0, &#39;microstep&#39;: 0}</span>
+</pre></div>
+</div>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="python.agent_temporal.AgentTemporal.to_human_time">
+<span class="sig-name descname"><span class="pre">to_human_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agent_tp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/python/agent_temporal.html#AgentTemporal.to_human_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#python.agent_temporal.AgentTemporal.to_human_time" title="Link to this definition">¶</a></dt>
+<dd><p>Convert agent time to human time.</p>
+<section id="id100">
+<h3>Mathematical Definition:<a class="headerlink" href="#id100" title="Link to this heading">¶</a></h3>
+<p>This method implements the morphism $phi: mathcal{T} rightarrow mathcal{H}$
+from agent time to human time:</p>
+<p>[ phi(tau) = (h_i)_{i in I_h} text{ where } h_i = tau_{mu^{-1}(i)} ]</p>
+<p>where:</p>
+<ul class="simple">
+<li><p>$tau = (tau_j)_{j in I_{tau}}$ is the agent timepoint</p></li>
+<li><p>$mu^{-1}: I_{tau} rightarrow I_h$ is the inverse mapping from agent time units to human time units</p></li>
+</ul>
+</section>
+<section id="id101">
+<h3>Parameters:<a class="headerlink" href="#id101" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>agent_tp<span class="classifier">dict</span></dt><dd><p>A timepoint in the agent temporal universe.</p>
+</dd>
+</dl>
+</section>
+<section id="id102">
+<h3>Returns:<a class="headerlink" href="#id102" title="Link to this heading">¶</a></h3>
+<p>:
+dict</p>
+<blockquote>
+<div><p>A dictionary mapping human time units to values.</p>
+</div></blockquote>
+</section>
+<section id="id103">
+<h3>References:<a class="headerlink" href="#id103" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>See <a class="reference external" href="/docs/theory/morphisms.md#definition-2-agent-human-morphism">Morphisms</a> for
+details on the agent-human morphism.</p></li>
+</ul>
+</section>
+<section id="id105">
+<h3>Examples:<a class="headerlink" href="#id105" title="Link to this heading">¶</a></h3>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">temporal</span> <span class="o">=</span> <span class="n">AgentTemporal</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert agent time to human time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">agent_tp</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">create_timepoint</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cycle</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">human_time</span> <span class="o">=</span> <span class="n">temporal</span><span class="o">.</span><span class="n">to_human_time</span><span class="p">(</span><span class="n">agent_tp</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Result: {&#39;hours&#39;: 1, &#39;minutes&#39;: 30, &#39;seconds&#39;: 45}</span>
+</pre></div>
+</div>
+</section>
 </dd></dl>
 
 </section>
-<section id="timepoints">
-<h2>Timepoints<a class="headerlink" href="#timepoints" title="Link to this heading">¶</a></h2>
-</section>
-<section id="partitions">
-<h2>Partitions<a class="headerlink" href="#partitions" title="Link to this heading">¶</a></h2>
-</section>
-<section id="operations">
-<h2>Operations<a class="headerlink" href="#operations" title="Link to this heading">¶</a></h2>
-</section>
+</dd></dl>
+
+<p># Commenting out subsections as these concepts are implemented within AgentTemporal
+# Temporal Universe
+# ————–
+#
+# .. automodule:: python.temporal.universe # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Timepoints
+# ———
+#
+# .. automodule:: python.temporal.timepoint # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Partitions
+# ———
+#
+# .. automodule:: python.temporal.partition # Adjust path if needed
+#    :members:
+#    :undoc-members:
+#    :show-inheritance:
+#    :special-members: __init__
+#
+# Operations
+# ———
+#
+# .. automodule:: python.temporal.operations # Adjust path if needed</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">members<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">undoc-members<span class="colon">:</span></dt>
+<dd class="field-even"><p></p></dd>
+<dt class="field-odd">show-inheritance<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</div></blockquote>
 </section>
 
         </article>
@@ -556,23 +1124,20 @@ Theorem 1 (Hierarchical-Linear Equivalence).</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Temporal Module</a><ul>
-<li><a class="reference internal" href="#temporal-universe">Temporal Universe</a><ul>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse</span></code></a><ul>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.__init__"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.create_timepoint"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.create_timepoint()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.normalize_timepoint"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.normalize_timepoint()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.compare_timepoints"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.compare_timepoints()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.timepoint_to_absolute"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.timepoint_to_absolute()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.absolute_to_timepoint"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.absolute_to_timepoint()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.add_duration"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.add_duration()</span></code></a></li>
-<li><a class="reference internal" href="#core.temporal.universe.TemporalUniverse.subtract_timepoints"><code class="docutils literal notranslate"><span class="pre">TemporalUniverse.subtract_timepoints()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal"><code class="docutils literal notranslate"><span class="pre">AgentTemporal</span></code></a><ul>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.__init__"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.create_timepoint"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.create_timepoint()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.normalize"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.normalize()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.to_base_units"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.to_base_units()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.from_base_units"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.from_base_units()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.add_time"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.add_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.subtract_time"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.subtract_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.compare_timepoints"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.compare_timepoints()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.time_difference"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.time_difference()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.from_human_time"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.from_human_time()</span></code></a></li>
+<li><a class="reference internal" href="#python.agent_temporal.AgentTemporal.to_human_time"><code class="docutils literal notranslate"><span class="pre">AgentTemporal.to_human_time()</span></code></a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a class="reference internal" href="#timepoints">Timepoints</a></li>
-<li><a class="reference internal" href="#partitions">Partitions</a></li>
-<li><a class="reference internal" href="#operations">Operations</a></li>
 </ul>
 </li>
 </ul>

@@ -289,4 +289,8 @@ This file tracks the project's progress using a task list format.
 
 [2025-03-30 15:24:00] - Pytest Debugging: Resolved all test collection errors and assertion failures locally by fixing `pyproject.toml` configuration, test fixture definitions/scope, and incorrect test assertions. 49/49 tests now pass locally.
 
+[2025-03-30 15:34:00] - Vertex AI Workbench Integration: Confirmed all 49 tests pass when run via `pytest` on the `timekeeper-workbench-std` VM instance after syncing local fixes.
+
+[2025-03-30 15:36:00] - Vertex AI Workbench Integration: Completed Task 2.4 - Verified GCP connection using `scripts/test_vertex_connection.py` on the VM, confirming successful authentication via the instance's service account.
+
 - Follow research hypotheses outlined in research framework
